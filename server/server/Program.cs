@@ -11,6 +11,8 @@ builder.Services.AddScoped<IGiftDal, GiftDal>();
 builder.Services.AddScoped<IGiftService, GiftService>();
 builder.Services.AddScoped<ICategoryDal, CategoryDal>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IDonorDal, DonorDal>();
+builder.Services.AddScoped<IDonorService, DonorService>();
 builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

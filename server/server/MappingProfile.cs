@@ -9,6 +9,15 @@ namespace server
     {
         public MappingProfile()
         {
+            CreateMap<DonorDto, Donor>();
+            CreateMap<Donor, DonorDtoResult>().ForMember(dest => dest.Gifts, opt => opt.MapFrom(src => src.Gifts.Select(g => new GiftDtoTheen
+                {
+                    Id = g.Id,
+                    GiftName = g.GiftName,
+                    Price = g.Price,
+                    details = g.details
+                }).ToList()));
+
             CreateMap<CategoryDto, Category>();
 
             CreateMap<GiftDto, Gift>();
