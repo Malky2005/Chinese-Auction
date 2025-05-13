@@ -10,18 +10,19 @@ namespace server
         public MappingProfile()
         {
             CreateMap<DonorDto, Donor>();
-            CreateMap<Donor, DonorDtoResult>().ForMember(dest => dest.Gifts, opt => opt.MapFrom(src => src.Gifts.Select(g => new GiftDtoTheen
-                {
-                    Id = g.Id,
-                    GiftName = g.GiftName,
-                    Price = g.Price,
-                    details = g.details
-                }).ToList()));
-
+            CreateMap<Donor, DonorDtoResult>();
+            CreateMap<Donor, DonorDtoTheen>();
+            
+            CreateMap<User, UserDtoTheen>();
+            
             CreateMap<CategoryDto, Category>();
 
             CreateMap<GiftDto, Gift>();
-            CreateMap<Gift, GiftDtoResult>();
+            CreateMap<Gift, GiftDtoResult>()
+                .ForMember(dest => dest.categoryName, opt => opt.MapFrom(src => src.Category.Name));
+            CreateMap<Gift, GiftDtoTheen>();
+
+            CreateMap<Ticket, TicketDtoTheen>();
         }
     }
 }

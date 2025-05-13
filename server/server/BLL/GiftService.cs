@@ -1,6 +1,7 @@
 ﻿using server.BLL.Intefaces;
 using server.DAL.intefaces;
 using server.Models;
+using server.Models.DTO;
 
 namespace server.BLL
 {
@@ -12,40 +13,45 @@ namespace server.BLL
         {
             _giftDal = giftRepository;
         }
-
-        public async Task<List<Gift>> GetAllGiftsAsync()
+        public async Task<List<GiftDtoResult>> Get()
         {
             return await _giftDal.Get();
         }
-
-        public async Task<Gift> GetGiftByIdAsync(int id)
+        public async Task<GiftDtoResult> Get(int id)
         {
             return await _giftDal.Get(id);
         }
-
-        public async Task AddGiftAsync(Gift gift)
+        public async Task Add(Gift gift)
         {
             await _giftDal.Add(gift);
         }
-
-        public async Task UpdateGiftAsync(Gift gift)
+        public async Task Update(int id, GiftDto gift)
         {
-            await _giftDal.Update(gift);
+            await _giftDal.Update(id, gift);
         }
-
-        public async Task<bool> DeleteGiftAsync(int id)
+        public async Task<bool> Delete(int id)
         {
             return await _giftDal.Delete(id);
         }
-
-        public async Task<Donor> GetGiftDonorAsync(int giftId)
+        public async Task<List<GiftDtoResult>> Search(string giftName = null, string donorName = null, int? buyerCount = null)
+        {
+            return await _giftDal.Search(giftName, donorName, buyerCount);
+        }
+        public async Task<DonorDtoResult> GetDonor(int giftId)
         {
             return await _giftDal.GetDonor(giftId);
         }
-
-        public async Task<List<Gift>> SearchGiftsAsync(string giftName, string donorName, int buyerCount)
+        public async Task<bool> TitleExists(string title)
         {
-            return await _giftDal.Search(giftName, donorName, buyerCount);
+            return await _giftDal.TitleExists(title);
+        }
+        public async Task<List<GiftDtoResult>> SortByPrice()
+        {
+            return await _giftDal.SortByPrice();
+        }
+        public async Task<List<GiftDtoResult>> SortByCategory()
+        {
+            return await _giftDal.SortByCategory();
         }
 
     }

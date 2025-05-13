@@ -1,11 +1,6 @@
-﻿namespace server.Models
+﻿namespace server.Models.DTO
 {
-    public enum UserRole
-    {
-        User = 1,
-        Manager = 2
-    }
-    public class User
+    public class UserDtoTheen
     {
         public int Id { get; set; }
         public string Fullname { get; set; }
@@ -14,7 +9,5 @@
         public string Email { get; set; }
         public string? phone { get; set; }
         public UserRole Role { get; set; } = UserRole.User;
-
-        public List<Ticket> Tickets { get; set; } 
     }
 }

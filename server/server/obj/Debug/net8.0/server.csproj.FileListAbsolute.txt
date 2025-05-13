@@ -1,3 +1,11 @@
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.csproj.AssemblyReference.cache
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.GeneratedMSBuildEditorConfig.editorconfig
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.AssemblyInfoInputs.cache
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.AssemblyInfo.cs
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.csproj.CoreCompileInputs.cache
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.MvcApplicationPartsAssemblyInfo.cs
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.MvcApplicationPartsAssemblyInfo.cache
+M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.sourcelink.json
 M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\appsettings.Development.json
 M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\appsettings.json
 M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\server.exe
@@ -147,13 +155,6 @@ M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\runtimes\win\lib\net6.
 M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.csproj.AssemblyReference.cache
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.GeneratedMSBuildEditorConfig.editorconfig
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.AssemblyInfoInputs.cache
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.AssemblyInfo.cs
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.csproj.CoreCompileInputs.cache
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.MvcApplicationPartsAssemblyInfo.cs
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.MvcApplicationPartsAssemblyInfo.cache
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\staticwebassets.build.json
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\staticwebassets.development.json
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\staticwebassets\msbuild.server.Microsoft.AspNetCore.StaticWebAssets.props
@@ -168,4 +169,3 @@ M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\refint\server.dll
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.pdb
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.genruntimeconfig.cache
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\ref\server.dll
-M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.sourcelink.json
