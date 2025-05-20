@@ -1,6 +1,7 @@
 ﻿using server.Models.DTO;
 using server.Models;
 using AutoMapper;
+using server.DAL.intefaces;
 
 
 namespace server
@@ -23,6 +24,12 @@ namespace server
             CreateMap<Gift, GiftDtoTheen>();
 
             CreateMap<Ticket, TicketDtoTheen>();
+
+            CreateMap<RegisterDto, User>();
+
+            CreateMap<TicketDto, Ticket>()
+                .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => new DateTime()));
+            CreateMap<Ticket, TicketDtoResult>();
         }
     }
 }

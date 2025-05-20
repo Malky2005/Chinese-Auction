@@ -15,5 +15,6 @@ namespace server.DAL.intefaces
         public Task<bool> TitleExists(string title);
         public Task<List<GiftDtoResult>> SortByPrice();
         public Task<List<GiftDtoResult>> SortByCategory();
+        public Task UpdateWinnerId(int id, int winnerId);
     }
 }

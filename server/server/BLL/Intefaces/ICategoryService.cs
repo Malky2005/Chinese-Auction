@@ -4,7 +4,7 @@ namespace server.BLL.Intefaces
 {
     public interface ICategoryService
     {
-        public Task<List<Category>> Get();
+        public Task<IEnumerable<Category>> Get();
         public Task<Category> Get(int id);
         public Task Add(Category category);
         public Task Update(int id, Category category);

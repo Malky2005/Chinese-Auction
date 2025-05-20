@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using server.BLL;
 using server.BLL.Intefaces;
 using server.Models;
 using server.Models.DTO;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace server.Controllers
 {
@@ -18,23 +16,27 @@ namespace server.Controllers
 
         public CategoryController(ICategoryService categoryService, IMapper mapper)
         {
-            this._categoryService = categoryService;
-            this._mapper = mapper;
+            _categoryService = categoryService;
+            _mapper = mapper;
         }
 
         // GET: api/<CategoryController>
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> Get()
+        public async Task<ActionResult<IEnumerable<Category>>> Get()
         {
             try
             {
-                List<Category> categories = await _categoryService.Get();
+                var categories = await _categoryService.Get();
                 return Ok(categories);
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
             }
-            
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+            }
         }
 
         // GET api/<CategoryController>/5
@@ -43,65 +45,86 @@ namespace server.Controllers
         {
             try
             {
-                Category category = await _categoryService.Get(id);
-                if (category != null)
-                    return Ok(category);
-                else
-                    return NotFound("id doesn't exist");
+                var category = await _categoryService.Get(id);
+                return Ok(category);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
             }
         }
 
         // POST api/<CategoryController>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Post([FromBody] CategoryDto categoryDto)
         {
-            Category category = _mapper.Map<Category>(categoryDto);
             try
             {
+                var category = _mapper.Map<Category>(categoryDto);
                 var duplicate = await _categoryService.NameExist(category.Name);
-                if(duplicate)
+                if (duplicate)
                 {
-                    return Conflict($"Gift whith name {category.Name} exists");
+                    return Conflict($"Category with name {category.Name} already exists.");
                 }
+
                 await _categoryService.Add(category);
-                return Created();
-            }catch(Exception ex)
+                return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
+            }
+            catch (ArgumentNullException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
             }
         }
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDto categoryDto)
         {
-            Category category = _mapper.Map<Category>(categoryDto);
             try
             {
-                Category existCategory = await _categoryService.Get(id);
-                if (existCategory == null)
-                    return NotFound("id doesn't exist");
+                var category = _mapper.Map<Category>(categoryDto);
+                var existingCategory = await _categoryService.Get(id);
+                if (existingCategory == null)
+                {
+                    return NotFound($"Category with ID {id} not found.");
+                }
+
                 var duplicate = await _categoryService.NameExist(category.Name);
                 if (duplicate)
                 {
-                    return Conflict($"Gift whith name {category.Name} exists");
+                    return Conflict($"Category with name {category.Name} already exists.");
                 }
 
                 await _categoryService.Update(id, category);
-                return Ok();
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); 
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message); 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
             }
         }
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             try
@@ -109,9 +132,13 @@ namespace server.Controllers
                 await _categoryService.Delete(id);
                 return NoContent();
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); 
+            }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
             }
         }
     }

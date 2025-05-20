@@ -1,5 +1,11 @@
 ﻿namespace server.Models
 {
+    public enum TicketStatus
+    {
+        Pending,
+        Paid,
+        Win
+    }
     public class Ticket
     {
         public int Id { get; set; }
@@ -10,8 +16,7 @@
         public Gift Gift { get; set; }
 
         public DateTime OrderDate { get; set; }
-        public bool IsPaid { get; set; } = false;
-        public bool IsWin { get; set; } = false;
+        public TicketStatus Status { get; set; } = TicketStatus.Pending;
 
     }
 }

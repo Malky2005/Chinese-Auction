@@ -3,9 +3,9 @@
     public class TicketDtoTheen
     {
         public int Id { get; set; }
-        public UserDtoTheen User { get; set; }
+        public int UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public bool IsPaid { get; set; } = false;
-        public bool IsWin { get; set; } = false;
+        public TicketStatus Status { get; set; }
     }
 }

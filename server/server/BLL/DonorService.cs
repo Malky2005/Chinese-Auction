@@ -12,7 +12,7 @@ namespace server.BLL
         {
             _donorDal = donorDal;
         }
-        public async Task<List<DonorDtoResult>> Get()
+        public async Task<IEnumerable<DonorDtoResult>> Get()
         {
             return await _donorDal.Get();
         }
@@ -32,7 +32,7 @@ namespace server.BLL
         {
             await _donorDal.Delete(id);
         }
-        public async Task<List<DonorDtoResult>> Search(string name = null, string email = null, string giftName = null)
+        public async Task<IEnumerable<DonorDtoResult>> Search(string name = null, string email = null, string giftName = null)
         {
             return await _donorDal.Search(name, email, giftName);
         }

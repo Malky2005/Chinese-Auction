@@ -25,11 +25,14 @@ namespace server.DAL
         public async Task Delete(int id)
         {
             var donor = await _context.Donors.FindAsync(id);
-            if (donor != null)
+            if (donor == null)
             {
-                _context.Donors.Remove(donor);
-                await _context.SaveChangesAsync();
+                throw new KeyNotFoundException($"Donor with ID {id} not found.");
             }
+
+            _context.Donors.Remove(donor);
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task<List<DonorDtoResult>> Get()
@@ -37,6 +40,10 @@ namespace server.DAL
             var donors = await _context.Donors
                 .Include(d => d.Gifts)
                 .ToListAsync();
+            if (donors == null || !donors.Any())
+            {
+                throw new InvalidOperationException("No donors found.");
+            }
 
             var donorDtos = _mapper.Map<List<DonorDtoResult>>(donors);
             return donorDtos;
@@ -50,7 +57,7 @@ namespace server.DAL
 
             if (donor == null)
             {
-                return null;
+                throw new KeyNotFoundException($"Donor with ID {id} not found.");
             }
 
             var donorDto = _mapper.Map<DonorDtoResult>(donor);
@@ -60,6 +67,10 @@ namespace server.DAL
         public async Task Update(int id, DonorDto donorDto)
         {
             var existingDonor = await _context.Donors.FindAsync(id);
+            if (existingDonor == null)
+            {
+                throw new KeyNotFoundException($"Donor with ID {id} not found.");
+            }
             if (existingDonor != null)
             {
                 existingDonor.Name = donorDto.Name;
@@ -74,7 +85,7 @@ namespace server.DAL
         public async Task<List<DonorDtoResult>> Search(string name = null, string email = null, string giftName = null)
         {
             var query = _context.Donors
-                .Include(d => d.Gifts) 
+                .Include(d => d.Gifts)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(name))
@@ -92,6 +103,10 @@ namespace server.DAL
                 query = query.Where(d => d.Gifts.Any(g => g.GiftName.Contains(giftName)));
             }
             var donors = await query.ToListAsync();
+            if (donors == null || !donors.Any())
+            {
+                throw new InvalidOperationException("No donors match the search criteria.");
+            }
             var donorDtos = _mapper.Map<List<DonorDtoResult>>(donors);
             return donorDtos;
         }

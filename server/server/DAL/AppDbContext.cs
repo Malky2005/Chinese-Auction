@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using server.Models;
+using System.Reflection.Emit;
 
 namespace server.DAL
 {
@@ -9,6 +10,16 @@ namespace server.DAL
         : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique(); 
+        }
+
 
         public DbSet<User> Users { get; set; }
         public DbSet<Gift> Gifts { get; set; }

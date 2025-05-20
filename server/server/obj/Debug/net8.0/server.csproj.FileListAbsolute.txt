@@ -169,3 +169,4 @@ M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\refint\server.dll
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.pdb
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\server.genruntimeconfig.cache
 M:\web API\Chinese Auction\server\server\obj\Debug\net8.0\ref\server.dll
+M:\web API\Chinese Auction\server\server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

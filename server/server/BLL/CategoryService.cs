@@ -22,7 +22,7 @@ namespace server.BLL
             await _categoryDal.Delete(id);
         }
 
-        public async Task<List<Category>> Get()
+        public async Task<IEnumerable<Category>> Get()
         {
             return await _categoryDal.Get();
         }
