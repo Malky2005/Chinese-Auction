@@ -6,5 +6,6 @@ namespace server.BLL.Intefaces
     {
         Task<string> Login(string username, string password);
         Task Register(User user);
+        Task<bool> UsernameExist(string username);
     }
 }

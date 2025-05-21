@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using server.BLL.Intefaces;
 using server.Models;
@@ -35,7 +36,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                return StatusCode(500, "An unexpected error occurred: ");
             }
         }
 
@@ -55,8 +56,21 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                return StatusCode(500, "An unexpected error occurred: ");
             }
+        }
+        [HttpGet("{username}")]
+        public async Task<IActionResult> UsernameExist(string username)
+        {
+            try
+            {
+                return Ok(await _userService.UsernameExist(username));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred: ");
+            }
+
         }
     }
 }

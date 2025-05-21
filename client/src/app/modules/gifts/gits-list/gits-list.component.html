@@ -1,0 +1,93 @@
+<div class="card">
+    <p-toast />
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+            <p-button severity="danger" label="Delete" icon="pi pi-trash" (onClick)="deleteSelectedProducts()"
+                [disabled]="!selectedProducts || !selectedProducts.length" />
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'category', 'price']"
+        [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Manage Products</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="filterGlobalSearch($event)" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox />
+                </th>
+                <th pSortableColumn="id" style="min-width:15rem">
+                    Id <p-sortIcon field="id" />
+                </th>
+                <th pSortableColumn="name" style="min-width:15rem">
+                    Name <p-sortIcon field="name" />
+                </th>
+                <th>
+                    Image
+                </th>
+                <th pSortableColumn="price">
+                    Price <p-sortIcon field="price" />
+                </th>
+                <th>Quntity</th>
+                <th pSortableColumn="giver" style="min-width:15rem">
+                    Donor<p-sortIcon field="giver" />
+                </th>
+
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="product" />
+                </td>
+                <td>
+                    {{product.id}}
+                </td>
+                <td>
+                    {{ product.name }}
+                </td>
+                <td>
+                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                        [alt]="product.name" width="50" class="shadow-4" />
+                </td>
+                <td>
+                    {{ product.price | currency : 'USD' }}
+                </td>
+                <td>{{product.quantity}}</td>
+                <td>
+                    {{product.giver}}
+                </td>
+
+                <td>
+                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                        (onClick)="editProduct(product)" />
+                    <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true"
+                        (onClick)="deleteProduct(product)" />
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{ products ? products.length : 0 }} products.
+            </div>
+        </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
+        styleClass="p-fluid">
+        <app-gift-details [product]="product" (onSaveGift)="saveProduct($event)"
+            (hide)=" hideDialog()"></app-gift-details>
+    </p-dialog>
+
+    <p-confirmDialog [style]="{ width: '450px' }" />
+</div>

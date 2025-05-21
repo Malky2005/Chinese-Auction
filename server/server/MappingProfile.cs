@@ -28,7 +28,7 @@ namespace server
             CreateMap<RegisterDto, User>();
 
             CreateMap<TicketDto, Ticket>()
-                .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => new DateTime()));
+                .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => DateOnly.FromDateTime( DateTime.Today)));
             CreateMap<Ticket, TicketDtoResult>();
         }
     }

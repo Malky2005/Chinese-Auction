@@ -47,5 +47,13 @@ namespace server.DAL
             }
             return user;
         }
+
+        public async Task<bool> UsernameExist(string username)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user != null)
+                return true;
+            return false;
+        }
     }
 }

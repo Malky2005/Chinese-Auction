@@ -73,5 +73,10 @@ namespace server.BLL
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        public async Task<bool> UsernameExist(string username)
+        {
+            return await _userDal.UsernameExist(username);
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace server.DAL.intefaces
         Task AddUser(User user);
 
         Task<User> GetUserFromToken();
+        Task<bool> UsernameExist(string username);
     }
 }

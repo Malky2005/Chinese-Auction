@@ -1,0 +1,43 @@
+<!-- <ng-template pTemplate="content"> -->
+    
+<img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image"
+    class="block m-auto pb-3" *ngIf="product.image" />
+<div class="field">
+    <label for="name" req>Name</label>
+    <input type="text" pInputText id="name" name="name" [(ngModel)]="product.name" required autofocus />
+
+    <small class="p-error" *ngIf="submitted && !product.name">
+        Name is required.
+    </small>
+</div>
+<div class="field">
+    <label for="donor" req>Donor</label>
+    <input type="text" pInputText id="donor" name="donor" [(ngModel)]="product.giver" required autofocus />
+
+    <small class="p-error" *ngIf="submitted && !product.giver">
+        Donor is required.
+    </small>
+</div>
+<div class="field">
+<div class="formgrid grid">
+    <div class="field col">
+        <label for="price">Price</label>
+        <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" />
+    </div>
+    <small class="p-error" *ngIf="submitted && !product.price">
+        Price is required.
+    </small>
+    <div class="field col">
+        <label for="quantity">Quantity</label>
+        <p-inputNumber id="quantity" [(ngModel)]="product.quantity" />
+    </div>
+    <small class="p-error" *ngIf="submitted && !product.quantity">
+        Quntity is required.
+    </small>
+</div>
+<!-- </ng-template> -->
+
+<!-- <ng-template pTemplate="footer"> -->
+<p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
+<p-button label="Save" icon="pi pi-check" [text]="true" (onClick)="saveProduct()" />
+<!-- </ng-template> -->

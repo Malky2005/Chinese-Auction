@@ -1,0 +1,44 @@
+<div class="card" style="margin-left: 20%;margin-top: 10%;">
+    <div class="flex flex-column md:flex-row">
+        <form [formGroup]="formLogin" (ngSubmit)="entry()">
+        <div class="w-full md:w-5 flex flex-column align-items-center justify-content-center gap-3 py-5">
+            <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+                <label class="w-6rem">Username</label>
+                <input pInputText id="username" type="text" class="w-12rem" formControlName="username"/>
+                <small *ngIf="submitted && formLogin.controls['username'].errors?.['required']">
+                    Username is required.
+                  </small>
+            </div>
+            <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+                <label class="w-6rem">Password</label>
+                <input pInputText id="password" type="password" class="w-12rem" formControlName="password"/>
+            </div>
+            <small *ngIf="submitted && formLogin.controls['password'].errors?.['required']">
+                Password is required.
+              </small>
+              <p-button type="submit" label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto" [disabled]="formLogin.invalid"/>
+        </div>
+    </form>
+        <div class="w-full md:w-2">
+            <p-divider layout="vertical" styleClass="hidden md:flex">
+                <b>OR</b>
+            </p-divider>
+            <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'">
+                <b>OR</b>
+            </p-divider>
+        </div>
+        <div class="w-full md:w-5 flex align-items-center justify-content-center py-5">
+            <p-button routerLink="/signup" label="Sign up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem" />
+        </div>
+    </div>
+</div>
+
+<p-message severity="error" 
+*ngIf="submitted&&formLogin.valid &&!existingUser" 
+[text]="'Check the username and password you entered or register by clicking on login'">
+</p-message>
+
+
+
+
+

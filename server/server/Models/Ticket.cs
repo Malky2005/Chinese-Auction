@@ -15,7 +15,7 @@
         public int GiftId { get; set; }
         public Gift Gift { get; set; }
 
-        public DateTime OrderDate { get; set; }
+        public DateOnly OrderDate { get; set; }
         public TicketStatus Status { get; set; } = TicketStatus.Pending;
 
     }
