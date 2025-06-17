@@ -49,7 +49,6 @@ import { PasswordModule } from 'primeng/password';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,PaymentModule,DonorModule,PurchacewModule,NavModule,PaymentRouterModule
-
   ],
   providers: [
     provideClientHydration(withEventReplay()),

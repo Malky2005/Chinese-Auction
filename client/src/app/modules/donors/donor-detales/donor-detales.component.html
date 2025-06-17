@@ -1,37 +1,27 @@
-<!-- <ng-template pTemplate="content"> -->
-<!-- <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image"
-    class="block m-auto pb-3" *ngIf="donor.image" /> -->
-   
-<div class="field">
-    <label for="name" req>Name</label>
-    <input type="text" pInputText id="name" name="name" [(ngModel)]="donor.name" required autofocus />
+<div class="card flex flex-wrap justify-center items-end gap-4">
 
-    <small class="p-error" *ngIf="submitted && !donor.name">
-        Name is required.
-    </small>
-</div>
-
-<div class="field">
-
-    <div class="formgrid grid">
-        <div class="field col">
-            <label for="price">Phone</label>
-            <p-inputNumber id="price" [(ngModel)]="donor.phone" mode="currency" currency="USD" locale="en-US" />
-        </div>
-        <small class="p-error" *ngIf="submitted && !donor.phone">
-            Phone is required.
+    <div class="field">
+        <label for="name" req>Name</label>
+        <input pInputText type="text" id="name" name="name" [(ngModel)]="donor.name" required autofocus />
+        <small class="p-error" *ngIf="submitted && !donor.name">
+            Name is required.
         </small>
-        <div class="field col">
-            <label for="quantity">Email</label>
-            <input type="email" id="quantity" [(ngModel)]="donor.email" />
-        </div>
+    </div>
+
+    <div class="field">
+        <label for="email">Email</label>
+        <input pInputText type="email" id="email" [(ngModel)]="donor.email" />
         <small class="p-error" *ngIf="submitted && !donor.email">
             Email is required.
         </small>
+    </div>
+    <!-- <div class="field">
+        <p-checkbox name="showMe" [(ngModel)]="donor.showMe" label="Show Me"></p-checkbox>
+    </div> -->
 
-        <!-- </ng-template> -->
-
-        <!-- <ng-template pTemplate="footer"> -->
+    <div class="field flex justify-content-between">
         <p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
         <p-button label="Save" icon="pi pi-check" [text]="true" (onClick)="saveDonor()" />
-        <!-- </ng-template> -->
+    </div>
+
+</div>

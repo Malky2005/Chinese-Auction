@@ -22,17 +22,19 @@ export class GitsListComponent implements OnInit {
 
     products!: Product[];
 
-    product: Product = createProduct({ category: 'Accessories' });
+    product: Product = createProduct({ categoryName: 'Accessories' });
     @Input()
     productName: string | undefined
 
     selectedProducts!: Product[] | null;
 
-    submitted: boolean = false;
     dt: any=''
     statuses!: any[];
     event: any;
 
+    BuyersCountFilter: Number|undefined = undefined;
+    donorFilter: string = '';
+    giftNameFilter: string = '';
 
     constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
     ngOnChanges(changes: SimpleChanges): void {
@@ -43,18 +45,11 @@ export class GitsListComponent implements OnInit {
 
         this.productService.getProductsDataFromServer().subscribe(data => {
             this.products = data
-        })
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
-        ];
+        });
     }
 
     openNew() {
         this.product = createProduct({});
-
-        this.submitted = false;
         this.productDialog = true;
     }
 
@@ -85,7 +80,7 @@ export class GitsListComponent implements OnInit {
 
     deleteProduct(product: Product) {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete ' + product.name + '?',
+            message: 'Are you sure you want to delete ' + product.giftName + '?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
@@ -103,31 +98,30 @@ export class GitsListComponent implements OnInit {
 
     hideDialog() {
         this.productDialog = false;
-        this.submitted = false;
     }
-    filterGlobalSearch(event: Event) {
-        const input = event.target as HTMLInputElement;
-        const value = input.value;
-        this.dt.filterGlobal(value, 'contains');
+    filterGifts() {
+        this.productService.searchProducts(this.BuyersCountFilter,this.donorFilter,this.giftNameFilter).subscribe(data=>{
+            this.products = data;
+        })
     }
     saveProduct(product: Product) {
-        this.submitted = true;
-        if (this.product.name?.trim()) {
+        if (this.product.giftName?.trim()) {
             if (product.id) {
                 this.productService.updateProduct(product).subscribe(data => {
                     this.productService.getProductsDataFromServer().subscribe(d => {
                         this.products = d
                         console.log(d)
+                        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
                     })
+                },err=>{
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'error update product', life: 3000 });
+                    console.log(err);
                 })
-                this.products[this.findIndexById(product.id)] = product;
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
             }
 
             else
-                if (this.findIndexByName(this.product.name) < 0) {
-                    product.id = this.createId();
-                    product.image = 'product-placeholder.svg';
+                if (this.findIndexByName(this.product.giftName) < 0) {
+                    product.imageUrl = 'product-placeholder.svg';
                     this.productService.post(product).subscribe(data => {
                         this.productService.getProductsDataFromServer().subscribe(d => {
                             this.products = d
@@ -146,7 +140,7 @@ export class GitsListComponent implements OnInit {
 
     }
 
-    findIndexById(id: string): number {
+    findIndexById(id: number): number {
         let index = -1;
         for (let i = 0; i < this.products.length; i++) {
             if (this.products[i].id === id) {
@@ -161,7 +155,7 @@ export class GitsListComponent implements OnInit {
     findIndexByName(name: string): number {
         let index = -1;
         for (let i = 0; i < this.products.length; i++) {
-            if (this.products[i].name === name) {
+            if (this.products[i].giftName === name) {
                 index = i;
                 break;
             }
@@ -170,24 +164,24 @@ export class GitsListComponent implements OnInit {
         return index;
     }
 
-    createId(): string {
-        let id = '';
-        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (var i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
-    }
+    // createId(): string {
+    //     let id = '';
+    //     var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //     for (var i = 0; i < 5; i++) {
+    //         id += chars.charAt(Math.floor(Math.random() * chars.length));
+    //     }
+    //     return id;
+    // }
 
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warning';
-            case 'OUTOFSTOCK':
-                return 'danger';
-            default: return undefined
-        }
-    }
+    // getSeverity(status: string) {
+    //     switch (status) {
+    //         case 'INSTOCK':
+    //             return 'success';
+    //         case 'LOWSTOCK':
+    //             return 'warning';
+    //         case 'OUTOFSTOCK':
+    //             return 'danger';
+    //         default: return undefined
+    //     }
+    // }
 }

@@ -27,7 +27,7 @@ builder.Services.AddScoped<ITicketService, TicketSevice>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
-   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 
 builder.Services.AddControllers();

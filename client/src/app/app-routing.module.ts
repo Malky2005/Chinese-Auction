@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'pay', loadChildren: () => import('./modules/Login/payment-routing.module').then(m => m.PaymentRouterModule) },
 
   { path: 'login', redirectTo: 'pay/login' },
-  { path: '**', redirectTo: 'pay/signup' },
+  //{ path: '**', redirectTo: 'pay/signup' },
   {path:'**',component:ErrorPageComponent},
 ];
 

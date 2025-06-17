@@ -1,7 +1,10 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { DonorService } from '../../../service/donorsServise';
+import { DonorService } from '../../../service/donorsService';
 import { ProductService } from '../../../service/productservice';
 import { Donor } from '../../../domain/donor';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-donor-detales',
@@ -20,16 +23,16 @@ export class DonorDetalesComponent {
   hide: EventEmitter<boolean> = new EventEmitter()
 
   hideDialog() {
-    alert(`hide: EventEmitter<boolean> `)
     this.submitted = false;
     this.hide.emit();
   }
   saveDonor() {
     this.submitted=true
-    if (!this.donor.name || !this.donor.phone || !this.donor.email) {
+    if (!this.donor.name || !this.donor.email) {
       return; 
     }
     this.onSaveDonor.emit(this.donor)
+    this.submitted = false;
   }
 
 

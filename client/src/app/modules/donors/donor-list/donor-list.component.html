@@ -1,44 +1,49 @@
 <div class="card">
+    <p-confirmDialog></p-confirmDialog>
     <p-toast />
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
             <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
-            <p-button severity="danger" label="Delete" icon="pi pi-trash" (onClick)="deleteSelectedDonors()"
-                [disabled]="!selectedDonors || !selectedDonors.length" />
         </ng-template>
 
         <ng-template pTemplate="right">
             <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import"
                 class="mr-2 inline-block" />
-            <p-button severity="help" label="Export" icon="pi pi-upload" />
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="donors" [rows]="10" [paginator]="true" [tableStyle]="{ 'min-width': '75rem' }"
+    <p-table #dt [value]="filterDonors()" [rows]="10" [paginator]="true" [tableStyle]="{ 'min-width': '75rem' }"
         [(selection)]="selectedDonors" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <h5 class="m-0">Manage Donors</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="filterGlobalSearch($event)" placeholder="Search..." />
-                </span>
+                <div>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="nameFilter" placeholder="Name" />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="emailFilter" placeholder="Email" />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="giftNameFilter" placeholder="Gift Name" />
+
+                    </span>
+                </div>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 4rem">
-                    <p-tableHeaderCheckbox />
-                </th>
+            <tr [ngClass]="rowClass(donor)">
                 <th pSortableColumn="id" style="min-width:15rem">
                     Id <p-sortIcon field="id" />
                 </th>
                 <th pSortableColumn="name" style="min-width:15rem">
                     Name <p-sortIcon field="name" />
                 </th>
-               <th>Phone</th>
-               <th>Email</th>
+                <th>Email</th>
                 <th>My Gifts</th>
                 <th></th>
             </tr>
@@ -46,22 +51,17 @@
         <ng-template pTemplate="body" let-donor>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="donor" />
-                </td>
-                <td>
                     {{donor.id}}
                 </td>
                 <td>
                     {{ donor.name }}
                 </td>
-                <!-- //לשנות בהמשך בלי ? אלו שדות חובה!! -->
-                <td>{{donor?.phone}}</td>
-                <td>{{donor?.email}}</td>
-                <td><p-button label="show" severity="warning" (click)="showGifts()"/>
-                     <!-- <p-tag severity="warning" (click)="showGifts()">
+                <td>{{donor.email}}</td>
+                <td><p-button label="show" severity="warning" (click)="showGifts(donor)" />
+                    <!-- <p-tag severity="warning" (click)="showGifts()">
                         Show
                     </p-tag>  -->
-               </td>
+                </td>
                 <td>
                     <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
                         (onClick)="editDonor(donor)" />
@@ -79,8 +79,12 @@
 
     <p-dialog [(visible)]="donorDialog" [style]="{ width: '450px' }" header="donor Details" [modal]="true"
         styleClass="p-fluid">
-      <app-donor-detales [donor]="this.donor" (onSaveDonor)="saveDonor($event)" (hide)="hideDialog()"></app-donor-detales>
+        <app-donor-detales [donor]="this.donor" (onSaveDonor)="saveDonor($event)"
+            (hide)="hideDialog()"></app-donor-detales>
     </p-dialog>
 
-
+    <p-dialog [(visible)]="showMyGifts" [style]="{ width: '90%' }" header={{this.donor.name}} [modal]="true"
+        styleClass="p-fluid">
+        <app-donor-gift-list [products]="this.donor.gifts || []"></app-donor-gift-list>
+    </p-dialog>
 </div>

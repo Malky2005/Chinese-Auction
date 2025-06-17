@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WnKHTyYreBk=",
+  "dgSpecHash": "euMQHlQW7IU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\999\\Documents\\מלכי\\Chinese-Auction\\server\\server\\server.csproj",
+  "projectFilePath": "C:\\Users\\999\\Documents\\מלכי\\Chinese-auction\\server\\server\\server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\999\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\999\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

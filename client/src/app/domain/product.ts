@@ -1,19 +1,17 @@
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
+import { Donor } from "./donor";
+import { User } from "./user";
+
+export class Product {
+    id?: number;
+    giftName?: string;
+    details?: string;
     price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-    giver?:string
-    /**
-     *
-     */
-    
+    categoryId?: number;
+    categoryName?: string;
+    imageUrl?: string;
+    donor?:Donor;
+    winner?: User;
+    tickets?: object[];    
 }
 
 export function createProduct(data: Partial<Product> = {}): Product {

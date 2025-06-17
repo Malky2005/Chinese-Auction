@@ -16,6 +16,7 @@ import { OrderListModule } from "primeng/orderlist";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { ToolbarModule } from "primeng/toolbar";
 import { GiftDetailsComponent } from "./gift-details/gift-details.component";
+import { InputTextModule } from "primeng/inputtext";
 
 @NgModule({
     declarations:[GitsListComponent,GiftDetailsComponent],
@@ -24,7 +25,7 @@ import { GiftDetailsComponent } from "./gift-details/gift-details.component";
         ToastModule,DropdownModule,
         InputNumberModule,
         RatingModule,ToolbarModule,
-        
+        InputTextModule,
         ConfirmDialogModule,],
     exports:[GitsListComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

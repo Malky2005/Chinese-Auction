@@ -9,7 +9,7 @@ import { createProduct, Product } from '../../../domain/product';
 })
 export class GiftDetailsComponent {
   @Input()
-  product: Product = createProduct({ category: 'Accessories' });
+  product: Product = createProduct({ categoryName: 'Accessories' });
   @Output()
   onSaveGift: EventEmitter<Product> = new EventEmitter()
   submitted: boolean = false;
@@ -17,15 +17,15 @@ export class GiftDetailsComponent {
   hide: EventEmitter<boolean> = new EventEmitter()
 
   hideDialog() {
-alert(`hide: EventEmitter<boolean> `)
     this.submitted = false;
     this.hide.emit();
   }
   saveProduct() {
     this.submitted=true
-    if (!this.product.name || !this.product.price || !this.product.giver||!this.product.quantity) {
+    if (!this.product.giftName || !this.product.price || !this.product.donor) {
       return; 
     }
+    this.submitted = false;
     this.onSaveGift.emit(this.product)
   }
 

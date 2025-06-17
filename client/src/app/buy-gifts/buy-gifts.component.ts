@@ -15,22 +15,8 @@ export class BuyGiftsComponent {
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-      this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
+      this.productService.getProductsDataFromServer()
+      .subscribe((data) => (this.products = data.slice(0, 5)));
   }
 
-  getSeverity (product: Product) {
-      switch (product.inventoryStatus) {
-          case 'INSTOCK':
-              return 'success';
-
-          case 'LOWSTOCK':
-              return 'warning';
-
-          case 'OUTOFSTOCK':
-              return 'danger';
-
-          default:
-              return undefined;
-      }
-  };
 }

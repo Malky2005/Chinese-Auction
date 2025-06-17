@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\999\\Documents\\מלכי\\Chinese-Auction\\server\\server\\server.csproj": {}
+    "C:\\Users\\999\\Documents\\מלכי\\Chinese-auction\\server\\server\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\999\\Documents\\מלכי\\Chinese-Auction\\server\\server\\server.csproj": {
+    "C:\\Users\\999\\Documents\\מלכי\\Chinese-auction\\server\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\999\\Documents\\מלכי\\Chinese-Auction\\server\\server\\server.csproj",
+        "projectUniqueName": "C:\\Users\\999\\Documents\\מלכי\\Chinese-auction\\server\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\999\\Documents\\מלכי\\Chinese-Auction\\server\\server\\server.csproj",
+        "projectPath": "C:\\Users\\999\\Documents\\מלכי\\Chinese-auction\\server\\server\\server.csproj",
         "packagesPath": "C:\\Users\\999\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\999\\Documents\\מלכי\\Chinese-Auction\\server\\server\\obj\\",
+        "outputPath": "C:\\Users\\999\\Documents\\מלכי\\Chinese-auction\\server\\server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

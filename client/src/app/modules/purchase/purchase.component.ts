@@ -22,14 +22,14 @@ export class PurchaseComponent {
     constructor(private productService: ProductService) { }
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => {
+        this.productService.getProductsDataFromServer().subscribe((data) => {
             this.products = Array.isArray(data) ? data.slice(0, 5) : []
             this.filteredData = [...this.products];
-        }).catch(error => {
+        },(error => {
             console.error('Error loading products:', error);
             this.products = []
             this.filteredData = []
-        });
+        }));
 
     }
     filterGlobalSearch(event: Event) {

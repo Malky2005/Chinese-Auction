@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Donor } from '../../../domain/donor';
-import { DonorService } from '../../../service/donorsServise';
+import { DonorService } from '../../../service/donorsService';
 import { ToolbarModule } from "primeng/toolbar";
 @Component({
     selector: 'app-donor-list',
@@ -24,20 +24,72 @@ export class DonorListComponent implements OnInit {
 
     submitted: boolean = false;
 
-    dt: any=''
+    dt: any = ''
     statuses!: any[];
     event: any;
     showMyGifts: boolean = false
 
+    nameFilter: string = '';
+    emailFilter: string = '';
+    giftNameFilter: string = '';
+
     constructor(private donorService: DonorService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
+        this.loadDonors();
+    }
 
+    loadDonors() {
         this.donorService.getDonorsDataFromServer().subscribe(data => {
-            this.donors = data
-        })
-        this.dt=''
+            this.donors = data;
+        });
+    }
 
+    filterDonors() {
+        if (!this.donors) {
+            return []; 
+        }
+        return this.donors.filter(donor => {
+            const matchesName = donor.name?.toLowerCase().includes(this.nameFilter.toLowerCase());
+            const matchesEmail = donor.email?.toLowerCase().includes(this.emailFilter.toLowerCase());
+            const matchesGiftName = donor.gifts?.some(gift => gift.giftName?.toLowerCase().includes(this.giftNameFilter.toLowerCase())) || false;
+
+            return matchesName && matchesEmail && matchesGiftName;
+        });
+        // await this.donorService.search(this.nameFilter, this.emailFilter, this.giftNameFilter).subscribe(data => {
+        //     this.donors = data;
+        // }, err => {
+        //     console.error('Search error:', err);
+        //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not search donors', life: 3000 });
+        // });
+    }
+
+    deleteDonor(donor: Donor) {
+        this.confirmationService.confirm({
+            message: `Are you sure you want to delete ${donor.name}?`,
+            header: 'Confirm',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                console.log("1");
+
+                this.donorService.deleteDonorFromServer(donor).subscribe({
+                    next: () => {
+                        console.log("2");
+                        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Donor Deleted', life: 3000 });
+                        this.loadDonors(); // Reload donors after deletion
+                    },
+                    error: (err) => {
+                        console.log("3");
+                        console.error('Delete error:', err);
+                        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not delete donor', life: 3000 });
+                    }
+                });
+            }
+        });
+    }
+
+    rowClass(donor: Donor) {
+        return { '!bg-primary !text-primary-contrast': donor.showMe === false };
     }
 
     openNew() {
@@ -47,100 +99,44 @@ export class DonorListComponent implements OnInit {
         this.donorDialog = true;
     }
 
-    deleteSelectedDonors() {
-        this.confirmationService.confirm({
-            message: 'Are you sure you want to delete the selected donors?',
-            header: 'Confirm',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.donors = this.donors.filter((val) => !this.selectedDonors?.includes(val));
-                this.selectedDonors = null;
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Donor Deleted', life: 3000 });
-            }
-        });
-    }
-
     editDonor(donor: Donor) {
         this.donor = { ...donor };
         this.donorDialog = true;
     }
 
-    deleteDonor(donor: Donor) {
-        console.log(`delete`)
-        try {
-            this.confirmationService.confirm({
-
-                message: 'Are you sure you want to delete ' + donor.name + '?',
-                header: 'Confirm',
-                icon: 'pi pi-exclamation-triangle',
-                accept: () => {
-                    console.log(`accept`)
-                    this.donorService.deleteDonorFromServer(donor).subscribe({
-                        next: (data) => {
-                            console.log(`${donor.id} deleted`)
-                            // this.donor = {};
-                            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'donor Deleted', life: 3000 });
-                            this.donorService.getDonorsDataFromServer().subscribe(d => {
-                                console.log('Fetched donors:', d);
-                                this.donors = d
-                            })
-
-                        }, error: (err) => {
-                            console.log(`err`)
-                        }
-                    })
-
-                }
-            });
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
 
     hideDialog() {
         this.donorDialog = false;
         this.submitted = false;
     }
-    filterGlobalSearch(event: Event) {
-        const input = event.target as HTMLInputElement;
-        const value = input.value;
-        if (this.dt) {
-            this.dt.filterGlobal(value, 'contains');
-        } else {
-            // console.error(`'Table reference (dt) is not initialized.${this.dt}`);
-        }
-    }
-    saveDonor(donor:Donor) {
+    saveDonor(donor: Donor) {
         this.submitted = true;
         if (donor.name?.trim()) {
             if (donor.id) {
-                this.donorService.updateProduct(donor).subscribe(data=>{
+                this.donorService.updateProduct(donor).subscribe(data => {
                     this.donorService.getDonorsDataFromServer().subscribe(d => {
                         this.donors = d
-                        console.log(d)
+                        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'donor Updated', life: 3000 });
                     })
+                }, err => {
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'error update donor', life: 3000 });
+                    console.log(err);
                 })
-               
-                this.donors[this.findIndexById(donor.id)] = this.donor;
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'donor Updated', life: 3000 });
             } else
                 if (this.findIndexByName(donor.name) < 0) {
-                    donor.id=this.createId()
-                    console.log(`'new' ${donor}`)
-                //not working 
-                    this.donorService.post(donor).subscribe(data=>{
+                    this.donorService.post(donor).subscribe(data => {
                         this.donorService.getDonorsDataFromServer().subscribe(d => {
                             this.donors = d
-                            console.log(d)
+                            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'donor Created', life: 3000 });
                         })
+                    }, err => {
+                        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'error createing donor', life: 3000 });
+                        console.log(err);
                     })
-                
-                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'donor Created', life: 3000 });
+
                 }
                 else
                     alert(`this name is exist`)
-            this.donors = [...this.donors]
             this.donorDialog = false
             this.donor = {}
         }
@@ -179,7 +175,8 @@ export class DonorListComponent implements OnInit {
         }
         return id;
     }
-    showGifts() {
+    showGifts(donor: Donor) {
+        this.donor = donor;
         this.showMyGifts = true;
     }
 
