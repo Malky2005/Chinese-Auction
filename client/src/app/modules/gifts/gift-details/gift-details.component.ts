@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { createProduct, Product } from '../../../domain/product';
+import { Product } from '../../../domain/product';
 import { DonorService } from '../../../service/donorsService';
 import { CategoryService } from '../../../service/categoryService';
 import { Category } from '../../../domain/category';
@@ -13,7 +13,7 @@ import { Donor } from '../../../domain/donor';
 })
 export class GiftDetailsComponent {
   @Input()
-  product: Product = createProduct({ categoryName: 'Accessories' });
+  product: Product = new Product();
   @Output()
   onSaveGift: EventEmitter<Product> = new EventEmitter()
   submitted: boolean = false;

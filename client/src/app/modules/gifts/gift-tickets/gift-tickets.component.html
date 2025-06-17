@@ -1,0 +1,51 @@
+<div class="card">
+    <p-table [value]="tickets || []" 
+        [tableStyle]="{ 'min-width': '90%' }" [rowHover]="true" dataKey="id">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th pSortableColumn="id">
+                    Id <p-sortIcon field="id" />
+                </th>
+                <th pSortableColumn="orderDate">
+                    Order Date <p-sortIcon field="orderDate" />
+                </th>
+                <th pSortableColumn="fullname">
+                    User FullName<p-sortIcon field="fullname" />
+                </th>
+                <th pSortableColumn="email">
+                    User Email<p-sortIcon field="email" />
+                </th>
+                <th pSortableColumn="phone">
+                    User Phone <p-sortIcon field="phone" />
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ticket>
+            <tr>
+                <td>
+                    <i *ngIf="ticket.status == 2" class="pi pi-check-circle" style="font-size: 1.5rem"></i>
+                </td>
+                <td>
+                    {{ticket.id}}
+                </td>
+                <td>
+                    {{ticket.orderDate | date:'short'}}
+                </td>
+                <td>
+                    {{ticket.user.fullname}}
+                </td>
+                <td>
+                    {{ticket.user.email}}
+                </td>
+                <td>
+                    {{ticket.user.phone}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+    <p-confirmDialog [style]="{ width: '450px' }" />
+</div>

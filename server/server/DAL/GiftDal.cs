@@ -23,6 +23,7 @@ namespace server.DAL
                 .Include(g => g.Category)
                 .Include(g => g.Donor)
                 .Include(g => g.Tickets.Where(t => t.Status != TicketStatus.Pending))
+                .ThenInclude(t => t.User)
                 .Include(g => g.Winner)
                 .ToListAsync();
 
@@ -37,6 +38,7 @@ namespace server.DAL
                 .Include(g => g.Category)
                 .Include(g => g.Donor)
                 .Include(g => g.Tickets.Where(t => t.Status != TicketStatus.Pending))
+                .ThenInclude(t => t.User)
                 .Include(g => g.Winner)
                 .FirstOrDefaultAsync(g => g.Id == id);
 
@@ -115,6 +117,7 @@ namespace server.DAL
                 .Include(g => g.Category)
                 .Include(g => g.Donor)
                 .Include(g => g.Tickets.Where(t => t.Status != TicketStatus.Pending))
+                .ThenInclude(t => t.User)
                 .Include(g => g.Winner)
                 .AsQueryable();
 
@@ -157,6 +160,7 @@ namespace server.DAL
                 .Include(g => g.Category)
                 .Include(g => g.Donor)
                 .Include(g => g.Tickets.Where(t => t.Status != TicketStatus.Pending))
+                .ThenInclude(t => t.User)
                 .Include(g => g.Winner)
                 .OrderBy(g => g.Price)
                 .ToListAsync();
@@ -172,6 +176,7 @@ namespace server.DAL
                 .Include(g => g.Category)
                 .Include(g => g.Donor)
                 .Include(g => g.Tickets.Where(t => t.Status != TicketStatus.Pending))
+                .ThenInclude(t => t.User)
                 .Include(g => g.Winner)
                 .OrderBy(g => g.Category.Name)
                 .ToListAsync();

@@ -78,7 +78,7 @@ namespace server.BLL
             var winnerTicket = gift.Tickets[winnerIndex];
 
             await _ticketDal.Win(winnerTicket.Id);
-            await _giftDal.UpdateWinnerId(id, winnerTicket.UserId);
+            await _giftDal.UpdateWinnerId(id, winnerTicket.User.Id);
         }
 
     }

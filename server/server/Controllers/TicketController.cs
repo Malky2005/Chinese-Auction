@@ -39,7 +39,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "An unexpected error occurred."});
+                return StatusCode(500, new { message = "An unexpected error occurred." });
             }
         }
 
@@ -108,7 +108,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "An unexpected error occurred."});
+                return StatusCode(500, new { message = "An unexpected error occurred." });
             }
         }
 
@@ -128,7 +128,7 @@ namespace server.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-            catch(InvalidDataException ex)
+            catch (InvalidDataException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
@@ -195,5 +195,28 @@ namespace server.Controllers
                 return StatusCode(500, new { message = "An unexpected error occurred." });
             }
         }
+        [HttpGet("byGift/{giftId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetByGiftId(int giftId)
+        {
+            try
+            {
+                var tickets = await _ticketService.GetByGiftId(giftId);
+                return Ok(tickets);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred." });
+            }
+        }
+
     }
 }

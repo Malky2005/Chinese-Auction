@@ -50,14 +50,14 @@ export class NavComponent implements OnInit {
             command: () => {
                 this.router.navigate(['/donors']);
             }
-        },
-        {
-          label: 'Buy Gifts',
-          icon: 'pi pi-link',
-          command: () => {
-              this.router.navigate(['/purchase']);
-          }
-      }
+         },
+    //     {
+    //       label: 'Buy Gifts',
+    //       icon: 'pi pi-link',
+    //       command: () => {
+    //           this.router.navigate(['/purchase']);
+    //       }
+    //   }
       ];
   }
 }

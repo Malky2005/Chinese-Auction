@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { createProduct, Product } from '../domain/product';
+import { Product } from '../domain/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -22,6 +22,9 @@ export class ProductService {
     }
 
     getProductsDataFromServer(): Observable<Product[]> {
+        return this._http.get<Product[]>(this.baseUrl, { headers: this.getHeaders() });
+    }
+    getProductsDataFromServerForUser(): Observable<Product[]> {
         return this._http.get<Product[]>(this.baseUrl)
     }
     searchProducts(buyerCount: Number | undefined, donorName: string | undefined, giftName: string | undefined): Observable<Product[]> {
@@ -70,5 +73,8 @@ export class ProductService {
                 winnerId: product.winner?.id,
                 details: product.details
             }, { headers: this.getHeaders() })
+    }
+    raffle(id: number) {
+        return this._http.put(`${this.baseUrl}/raffle/${id}`,{},{ headers: this.getHeaders() });
     }
 };

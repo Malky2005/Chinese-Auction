@@ -20,7 +20,7 @@ namespace server
 
             CreateMap<GiftDto, Gift>();
             CreateMap<Gift, GiftDtoResult>()
-                .ForMember(dest => dest.categoryName, opt => opt.MapFrom(src => src.Category.Name));
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
             CreateMap<Gift, GiftDtoTheen>();
 
             CreateMap<Ticket, TicketDtoTheen>();

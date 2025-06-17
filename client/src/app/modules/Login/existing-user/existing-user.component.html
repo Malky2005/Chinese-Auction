@@ -34,7 +34,7 @@
 </div>
 
 <p-message severity="error" 
-*ngIf="submitted&&formLogin.valid &&!existingUser" 
+*ngIf="submitted&&formLogin.valid &&!existingUser&&showMessage" 
 [text]="'Check the username and password you entered or register by clicking on login'">
 </p-message>
 

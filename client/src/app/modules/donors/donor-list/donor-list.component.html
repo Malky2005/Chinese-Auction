@@ -17,22 +17,7 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Manage Donors</h5>
-                <div>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="nameFilter" placeholder="Name" />
-                    </span>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="emailFilter" placeholder="Email" />
-                    </span>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="giftNameFilter" placeholder="Gift Name" />
-
-                    </span>
-                </div>
+                <h3 class="m-0">Manage Donors</h3>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -47,6 +32,27 @@
                 <th>My Gifts</th>
                 <th></th>
             </tr>
+            <tr>
+                <th></th>
+                <th>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="nameFilter" placeholder="Name" />
+                    </span>
+                </th>
+                <th>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="emailFilter" placeholder="Email" />
+                    </span>
+                </th>
+                <th>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="giftNameFilter" placeholder="Gift Name" />
+                    </span>
+                </th>
+            </tr>
         </ng-template>
         <ng-template pTemplate="body" let-donor>
             <tr>
@@ -57,10 +63,8 @@
                     {{ donor.name }}
                 </td>
                 <td>{{donor.email}}</td>
-                <td><p-button label="show" severity="warning" (click)="showGifts(donor)" />
-                    <!-- <p-tag severity="warning" (click)="showGifts()">
-                        Show
-                    </p-tag>  -->
+                <td>
+                    <p-button label="show" severity="warning" (click)="showGifts(donor)" />
                 </td>
                 <td>
                     <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"

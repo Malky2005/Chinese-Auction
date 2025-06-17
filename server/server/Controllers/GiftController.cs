@@ -20,6 +20,7 @@ namespace server.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+        [Authorize (Roles = "Admin")]
         public async Task<IActionResult> Get()
         {
             try
@@ -241,7 +242,7 @@ namespace server.Controllers
             try
             {
                 await _giftService.raffle(id);
-                return Ok("Raffle completed successfully.");
+                return Ok();
             }
             catch (KeyNotFoundException ex)
             {

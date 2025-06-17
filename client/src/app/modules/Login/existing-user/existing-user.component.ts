@@ -18,27 +18,15 @@ export class ExistingUserComponent implements OnInit {
   
   constructor(private _userService: UserService, private router: Router) { }
   submitted: boolean = false
-  //users: User[] | undefined
+  showMessage: boolean = false;
   ngOnInit(): void {
     this.existingUser=false
     this.formLogin= new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-    // this.userService.getUsersDataFromServer().subscribe(data => {
-    //   this.users = data;
-    // },
-      // (err) => {
-      //   console.log(`faild on get users from data ${err}`)
-      // })
 
   }
-  // existingPassword(password: string) {
-
-  //   if (this.users?.find((user) => user.password == password))
-  //     return true
-  //   return false
-  // }
   entry() {
     this.submitted = true
     this._userService.login(this.formLogin.controls['username'].value, this.formLogin.controls['password'].value).subscribe(
@@ -55,6 +43,7 @@ export class ExistingUserComponent implements OnInit {
       (err) => {
         this.existingUser = false
         console.log(`login failed ${err}`)
+        this.showMessage = true;
       }
     )
   }

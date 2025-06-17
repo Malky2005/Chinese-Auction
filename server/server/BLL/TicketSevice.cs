@@ -49,6 +49,12 @@ namespace server.BLL
         {
             await _ticketDal.Delete(id);
         }
-        
+
+        public async Task<IEnumerable<TicketDtoResult>> GetByGiftId(int giftId)
+        {
+            return await _ticketDal.GetByGiftId(giftId);
+        }
+
+
     }
 }

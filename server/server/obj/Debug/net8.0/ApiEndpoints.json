@@ -420,6 +420,22 @@
   },
   {
     "ContainingType": "server.Controllers.TicketController",
+    "Method": "GetByGiftId",
+    "RelativePath": "api/Ticket/byGift/{giftId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "giftId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "server.Controllers.TicketController",
     "Method": "GetByUserPaid",
     "RelativePath": "api/Ticket/paid",
     "HttpMethod": "GET",

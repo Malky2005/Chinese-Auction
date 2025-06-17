@@ -1,4 +1,5 @@
 import { Donor } from "./donor";
+import { Ticket } from "./ticket";
 import { User } from "./user";
 
 export class Product {
@@ -11,12 +12,13 @@ export class Product {
     imageUrl?: string;
     donor?:Donor;
     winner?: User;
-    tickets?: object[];    
+    tickets?: Ticket[];
+    numOfTickets: number = 0;    
 }
 
-export function createProduct(data: Partial<Product> = {}): Product {
-    return {
-      price:data.price??10, 
-      ...data,   
-    };
-  }
+// export function createProduct(data: Partial<Product> = {}): Product {
+//     return {
+//       price:data.price??10, 
+//       ...data,   
+//     };
+//   }

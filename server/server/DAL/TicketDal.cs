@@ -159,5 +159,19 @@ namespace server.DAL
             _dbContext.Tickets.Remove(ticket);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<List<TicketDtoResult>> GetByGiftId(int giftId)
+        {
+            var tickets = await _dbContext.Tickets
+                .Where(t => t.GiftId == giftId && t.Status != TicketStatus.Pending)
+                .Include(t => t.Gift)
+                .ToListAsync();
+            if (tickets == null)
+            {
+                throw new InvalidOperationException("No tickets found for this giftId.");
+            }
+            var ticketDtos = _mapper.Map<List<TicketDtoResult>>(tickets);
+            return ticketDtos;
+        }
     }
 }

@@ -3,32 +3,17 @@
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
             <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+            <p-button label="Export Winners Report" icon="pi pi-file-excel" (onClick)="exportWinnersToExcel()" />
+            <p-button label="Export Incomes Report" icon="pi pi-file-excel" (onClick)="exportIncomesToExcel()" />
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'category', 'price']"
+    <p-table #dt [value]="filterGifts()" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'category', 'price']"
         [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Manage Products</h5>
-                <div>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="giftNameFilter" placeholder="Gift Name" />
-                    </span>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="donorFilter" placeholder="donor" />
-                    </span>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="number" [(ngModel)]="BuyersCountFilter" placeholder="num of buyers" />
-
-                    </span>
-                    <p-button icon="pi pi-search" class="ml-2" [rounded]="true" [outlined]="true"
-                        (onClick)="filterGifts()" />
-                </div>
+                <h3 class="m-0">Manage Products</h3>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -36,22 +21,51 @@
                 <th pSortableColumn="id">
                     Id <p-sortIcon field="id" />
                 </th>
-                <th pSortableColumn="giftName" style="min-width:15rem">
+                <th pSortableColumn="giftName">
                     Name <p-sortIcon field="giftName" />
                 </th>
-                <th pSortableColumn="category">
-                    Category <p-sortIcon field="category" />
+                <th pSortableColumn="categoryName">
+                    Category <p-sortIcon field="categoryName" />
                 </th>
-                <th>
+                <th style="min-width:5rem">
                     Image
                 </th>
                 <th pSortableColumn="price">
                     Price <p-sortIcon field="price" />
                 </th>
-                <th pSortableColumn="donor" style="min-width:15rem">
-                    Donor<p-sortIcon field="donor" />
+                <th>
+                    Donor
+                </th>
+                <th pSortableColumn="numOfTickets">
+                    Tickets<p-sortIcon field="numOfTickets" />
                 </th>
 
+                <th></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="giftNameFilter" placeholder="Gift Name" style="width: 180px;" />
+                    </span>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="donorFilter" placeholder="donor" style="width: 150px;" />
+                    </span>
+                </th>
+                <th>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="number" [(ngModel)]="BuyersCountFilter" placeholder="num of tickets" style="width: 165px;" />
+
+                    </span>
+                </th>
                 <th></th>
             </tr>
         </ng-template>
@@ -79,13 +93,24 @@
                 <td *ngIf="!product.donor.showMe">
                     Anonymous
                 </td>
-
                 <td>
+                    <p-button label="{{numOfTickets(product)}}" severity="help" (click)="showTickets(product)"
+                        [outlined]="true" />
+                </td>
+
+                <td *ngIf="!product.winner">
                     <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
                         (onClick)="editProduct(product)" />
                     <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true"
                         (onClick)="deleteProduct(product)" />
+                    <p-button label="raffle" severity="warning" [rounded]="true" [outlined]="true"
+                        (onClick)="raffle(product)" />
                 </td>
+                <td *ngIf="product.winner">
+                    <p-button label="show winner" severity="success" [rounded]="true" [outlined]="true"
+                        (onClick)="showWinner(product)" />
+                </td>
+
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -97,8 +122,16 @@
 
     <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
         styleClass="p-fluid">
-        <app-gift-details [product]="this.product" (onSaveGift)="saveProduct(product)" (hide)="hideDialog()"></app-gift-details>
+        <app-gift-details [product]="this.product" (onSaveGift)="saveProduct(product)"
+            (hide)="hideDialog()"></app-gift-details>
     </p-dialog>
-
+    <p-dialog [(visible)]="showGiftTickets" [style]="{ width: '90%' }" header={{this.product.giftName}} [modal]="true"
+        styleClass="p-fluid">
+        <app-gift-tickets [tickets]="this.product.tickets"></app-gift-tickets>
+    </p-dialog>
+    <p-dialog [(visible)]="showWinnerDetails" [style]="{ width: '450px' }" header={{this.product.giftName}}
+        [modal]="true" styleClass="p-fluid">
+        <app-gift-winner-details [winner]="this.product.winner"></app-gift-winner-details>
+    </p-dialog>
     <p-confirmDialog [style]="{ width: '450px' }" />
 </div>
