@@ -17,10 +17,12 @@ import { RadioButtonModule } from "primeng/radiobutton";
 import { ToolbarModule } from "primeng/toolbar";
 import { GiftDetailsComponent } from "./gift-details/gift-details.component";
 import { InputTextModule } from "primeng/inputtext";
+import { CategoryService } from "../../service/categoryService";
+import { DonorService } from "../../service/donorsService";
 
 @NgModule({
     declarations:[GitsListComponent,GiftDetailsComponent],
-    providers:[ProductService,ConfirmationService],
+    providers:[ProductService,ConfirmationService, CategoryService,DonorService],
     imports:[CommonModule,FormsModule ,DialogModule,ButtonModule,TableModule,ReactiveFormsModule,FormsModule,RadioButtonModule,
         ToastModule,DropdownModule,
         InputNumberModule,

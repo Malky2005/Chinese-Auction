@@ -1,9 +1,9 @@
 <!-- <ng-template pTemplate="content"> -->
-    
+
 <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.imageUrl" [alt]="product.imageUrl"
     class="block m-auto pb-3" *ngIf="product.imageUrl" />
 <div class="field">
-    <label for="name" req>Name</label>
+    <label for="name" req>Name *</label>
     <input pInputText type="text" id="name" name="name" [(ngModel)]="product.giftName" required autofocus />
 
     <small class="p-error" *ngIf="submitted && !product.giftName">
@@ -11,22 +11,43 @@
     </small>
 </div>
 <div class="field">
-    <label for="donor" req>Donor</label>
-    <input type="text" pInputText id="donor" name="donor" [(ngModel)]="product.donor" required autofocus />
+    <label for="donor" req>Donor *</label>
+    <p-dropdown id="donor" [options]="donors" [(ngModel)]="product.donor" optionLabel="name" required
+        placeholder="Select a donor" [showClear]="true" [filter]="true">
+    </p-dropdown>
 
     <small class="p-error" *ngIf="submitted && !product.donor">
         Donor is required.
     </small>
 </div>
 <div class="field">
-<div class="formgrid grid">
-    <div class="field col">
-        <label for="price">Price</label>
-        <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" />
-    </div>
-    <small class="p-error" *ngIf="submitted && !product.price">
-        Price is required.
+    <label for="category" req>Category *</label>
+    <p-dropdown id="category" [options]="categories" [(ngModel)]="product.categoryId" optionLabel="name"
+        optionValue="id" required placeholder="Select a category" [showClear]="true" [filter]="true">
+    </p-dropdown>
+
+    <small class="p-error" *ngIf="submitted && !product.categoryId">
+        category is required.
     </small>
+</div>
+<div class="field">
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="price">Price *</label>
+            <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" />
+        </div>
+        <small class="p-error" *ngIf="submitted && !product.price">
+            Price is required.
+        </small>
+    </div>
+</div>
+<div class="field">
+    <label for="details" req>Details</label>
+    <input pInputText type="text" id="details" name="details" [(ngModel)]="product.details" />
+</div>
+<div class="field">
+    <label for="imageUrl" req>imageUrl</label>
+    <input pInputText type="text" id="imageUrl" name="imageUrl" [(ngModel)]="product.imageUrl" />
 </div>
 <!-- </ng-template> -->
 

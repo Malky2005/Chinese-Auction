@@ -18,6 +18,6 @@ export class UserService {
         return this._http.get<boolean>(this.baseUrl + username)
     }
     login(username: string, password: string): Observable<Token> {
-        return this._http.post<Token>("https://localhost:5001/api/User/login/", { username, password })
+        return this._http.post<Token>(this.baseUrl + "login/", { username, password })
     }
 }

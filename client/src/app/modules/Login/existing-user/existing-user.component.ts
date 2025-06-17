@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../service/userService';
 import { User } from '../../../domain/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-existing-user',
   standalone: false,
@@ -15,7 +16,7 @@ export class ExistingUserComponent implements OnInit {
   formLogin: FormGroup=new FormGroup({})
 
   
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService, private router: Router) { }
   submitted: boolean = false
   //users: User[] | undefined
   ngOnInit(): void {
@@ -39,11 +40,7 @@ export class ExistingUserComponent implements OnInit {
   //   return false
   // }
   entry() {
-    // console.log(`entry`)
-    // this.users?.forEach(e => console.log(`${e.fullname} ${e.password}`))
     this.submitted = true
-    // console.log(`submitted: ${this.submitted}`)
-    // this.existingUser = this.existingPassword(this.formLogin.controls['password'].value)
     this._userService.login(this.formLogin.controls['username'].value, this.formLogin.controls['password'].value).subscribe(
       (data) => {
         this.existingUser = true
@@ -51,6 +48,9 @@ export class ExistingUserComponent implements OnInit {
         localStorage.setItem('token', data.token)
         localStorage.setItem('username', this.formLogin.controls['username'].value)
         this._userService.token = data.token;
+        this.router.navigate(['/gifts']);
+
+
       },
       (err) => {
         this.existingUser = false

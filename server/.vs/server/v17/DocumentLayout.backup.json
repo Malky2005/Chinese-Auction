@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\models\\dto\\giftdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|solutionrelative:server\\models\\dto\\giftdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\controllers\\giftcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|solutionrelative:server\\controllers\\giftcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\models\\dto\\giftdtoresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|solutionrelative:server\\models\\dto\\giftdtoresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\models\\gift.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|solutionrelative:server\\models\\gift.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\controllers\\giftcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|solutionrelative:server\\controllers\\giftcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\dal\\giftdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -76,10 +80,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|solutionrelative:server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\models\\dto\\giftdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|solutionrelative:server\\models\\dto\\giftdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64195A90-65E2-47AF-9309-F254E37FF98F}|server\\server.csproj|c:\\users\\999\\documents\\\u05DE\u05DC\u05DB\u05D9\\chinese-auction\\server\\server\\models\\dto\\giftdtotheen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -181,11 +181,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "TicketDtoTheen.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\TicketDtoTheen.cs",
               "RelativeDocumentMoniker": "server\\Models\\DTO\\TicketDtoTheen.cs",
@@ -193,12 +193,11 @@
               "RelativeToolTip": "server\\Models\\DTO\\TicketDtoTheen.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T16:56:39.216Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T16:56:39.216Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "LoginDto.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\LoginDto.cs",
               "RelativeDocumentMoniker": "server\\Models\\DTO\\LoginDto.cs",
@@ -206,12 +205,11 @@
               "RelativeToolTip": "server\\Models\\DTO\\LoginDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T12:17:48.562Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T12:17:48.562Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "GiftDal.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\DAL\\GiftDal.cs",
               "RelativeDocumentMoniker": "server\\DAL\\GiftDal.cs",
@@ -219,12 +217,11 @@
               "RelativeToolTip": "server\\DAL\\GiftDal.cs",
               "ViewState": "AgIAAGIAAAAAAAAAAAArwGEAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T15:08:43.859Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T15:08:43.859Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "GiftController.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Controllers\\GiftController.cs",
               "RelativeDocumentMoniker": "server\\Controllers\\GiftController.cs",
@@ -232,12 +229,11 @@
               "RelativeToolTip": "server\\Controllers\\GiftController.cs",
               "ViewState": "AgIAAFgAAAAAAAAAAAAAAGMAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T12:02:58.601Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T12:02:58.601Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "DonorDal.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\DAL\\DonorDal.cs",
               "RelativeDocumentMoniker": "server\\DAL\\DonorDal.cs",
@@ -245,25 +241,23 @@
               "RelativeToolTip": "server\\DAL\\DonorDal.cs",
               "ViewState": "AgIAAFYAAAAAAAAAAAAuwGUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T17:43:03.889Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-11T17:43:03.889Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "GiftDtoResult.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\GiftDtoResult.cs",
               "RelativeDocumentMoniker": "server\\Models\\DTO\\GiftDtoResult.cs",
-              "ToolTip": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\GiftDtoResult.cs*",
-              "RelativeToolTip": "server\\Models\\DTO\\GiftDtoResult.cs*",
+              "ToolTip": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\GiftDtoResult.cs",
+              "RelativeToolTip": "server\\Models\\DTO\\GiftDtoResult.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T14:01:57.914Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T14:01:57.914Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Gift.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\Gift.cs",
               "RelativeDocumentMoniker": "server\\Models\\Gift.cs",
@@ -271,12 +265,24 @@
               "RelativeToolTip": "server\\Models\\Gift.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T11:59:32.222Z",
+              "WhenOpened": "2025-05-12T11:59:32.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GiftDto.cs",
+              "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\GiftDto.cs",
+              "RelativeDocumentMoniker": "server\\Models\\DTO\\GiftDto.cs",
+              "ToolTip": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\GiftDto.cs",
+              "RelativeToolTip": "server\\Models\\DTO\\GiftDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-27T14:06:56.941Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "DonorDtoResult.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\DonorDtoResult.cs",
               "RelativeDocumentMoniker": "server\\Models\\DTO\\DonorDtoResult.cs",
@@ -284,12 +290,11 @@
               "RelativeToolTip": "server\\Models\\DTO\\DonorDtoResult.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T13:04:07.985Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-11T13:04:07.985Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "DonorController.cs",
               "DocumentMoniker": "C:\\Users\\999\\AppData\\Local\\SourceServer\\0dc60f4e3f4a6309191434f3e97dfe63f74a129ac6637383ba9acec87040e59e\\server\\server\\Controllers\\DonorController.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\SourceServer\\0dc60f4e3f4a6309191434f3e97dfe63f74a129ac6637383ba9acec87040e59e\\server\\server\\Controllers\\DonorController.cs",
@@ -302,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "TicketDtoResult.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\TicketDtoResult.cs",
               "RelativeDocumentMoniker": "server\\Models\\DTO\\TicketDtoResult.cs",
@@ -314,7 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "DonorController.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Controllers\\DonorController.cs",
               "RelativeDocumentMoniker": "server\\Controllers\\DonorController.cs",
@@ -322,12 +327,11 @@
               "RelativeToolTip": "server\\Controllers\\DonorController.cs",
               "ViewState": "AgIAAIoAAAAAAAAAAAAqwHgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T12:01:55.095Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T12:01:55.095Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "TicketDto.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\TicketDto.cs",
               "RelativeDocumentMoniker": "server\\Models\\DTO\\TicketDto.cs",
@@ -339,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\appsettings.json",
               "RelativeDocumentMoniker": "server\\appsettings.json",
@@ -347,12 +351,11 @@
               "RelativeToolTip": "server\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-12T12:29:00.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:29:00.799Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Ticket.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\Ticket.cs",
               "RelativeDocumentMoniker": "server\\Models\\Ticket.cs",
@@ -364,7 +367,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "server\\Controllers\\UserController.cs",
@@ -372,12 +375,11 @@
               "RelativeToolTip": "server\\Controllers\\UserController.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAAAB4AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T12:16:58.972Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T12:16:58.972Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "server\\Properties\\launchSettings.json",
@@ -385,12 +387,11 @@
               "RelativeToolTip": "server\\Properties\\launchSettings.json",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-11T12:50:33.638Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-11T12:50:33.638Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\MappingProfile.cs",
               "RelativeDocumentMoniker": "server\\MappingProfile.cs",
@@ -402,7 +403,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "RegisterDto.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\RegisterDto.cs",
               "RelativeDocumentMoniker": "server\\Models\\DTO\\RegisterDto.cs",
@@ -410,12 +411,11 @@
               "RelativeToolTip": "server\\Models\\DTO\\RegisterDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T12:18:14.108Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T12:18:14.108Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Program.cs",
               "RelativeDocumentMoniker": "server\\Program.cs",
@@ -436,18 +436,6 @@
               "ViewState": "AgIAAAIAAAAAAAAAAAAxwAgAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-27T14:07:16.521Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "GiftDto.cs",
-              "DocumentMoniker": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\GiftDto.cs",
-              "RelativeDocumentMoniker": "server\\Models\\DTO\\GiftDto.cs",
-              "ToolTip": "C:\\Users\\999\\Documents\\\u05DE\u05DC\u05DB\u05D9\\Chinese-auction\\server\\server\\Models\\DTO\\GiftDto.cs",
-              "RelativeToolTip": "server\\Models\\DTO\\GiftDto.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAowAoAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T14:06:56.941Z"
             },
             {
               "$type": "Document",
@@ -615,8 +603,7 @@
               "RelativeToolTip": "server\\BLL\\GiftService.cs",
               "ViewState": "AQIAADYAAAAAAAAAAAAkwE8AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T15:57:09.114Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T15:57:09.114Z"
             },
             {
               "$type": "Document",
