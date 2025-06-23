@@ -20,6 +20,7 @@ import { TicketService } from '../../../service/ticketService';
     ]
 })
 export class GitsListComponent implements OnInit {
+    userRole: string | null = localStorage.getItem('role');
     productDialog: boolean = false;
 
     products!: Product[];
@@ -274,6 +275,18 @@ export class GitsListComponent implements OnInit {
         XLSX.utils.book_append_sheet(wb, ws, 'Incomes');
 
         XLSX.writeFile(wb, 'Incomes.xlsx');
+    }
+    addToCart(product: Product) {
+        this.ticketService.orderTicket(product.id || 0).subscribe(data => {
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Add gift to cart successfully', life: 3000 });
+            // this.ticketService.getTicketsByGiftId(product.id || 0).subscribe(tickets => {
+            //     product.tickets = tickets;
+            //     product.numOfTickets = tickets.length;
+            // });
+        }, err => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add gift to cart', life: 3000 });
+            console.error(err);
+        })
     }
     
 }

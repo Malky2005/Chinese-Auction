@@ -3,6 +3,7 @@ import { UserService } from '../../../service/userService';
 import { User } from '../../../domain/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../service/auth.service';
 @Component({
   selector: 'app-existing-user',
   standalone: false,
@@ -16,7 +17,7 @@ export class ExistingUserComponent implements OnInit {
   formLogin: FormGroup=new FormGroup({})
 
   
-  constructor(private _userService: UserService, private router: Router) { }
+  constructor(private _userService: UserService, private router: Router, private authService: AuthService) { }
   submitted: boolean = false
   showMessage: boolean = false;
   ngOnInit(): void {
@@ -35,10 +36,10 @@ export class ExistingUserComponent implements OnInit {
         console.log(`login success ${data}`)
         localStorage.setItem('token', data.token)
         localStorage.setItem('username', this.formLogin.controls['username'].value)
+        const userRole = data.role; 
+        this.authService.setUserRole(userRole);
         this._userService.token = data.token;
         this.router.navigate(['/gifts']);
-
-
       },
       (err) => {
         this.existingUser = false

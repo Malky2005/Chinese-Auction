@@ -1,6 +1,6 @@
 <div class="card">
     <p-toast />
-    <p-toolbar styleClass="mb-4 gap-2">
+    <p-toolbar styleClass="mb-4 gap-2" *ngIf="userRole==='ADMIN'">
         <ng-template pTemplate="left">
             <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
             <p-button label="Export Winners Report" icon="pi pi-file-excel" (onClick)="exportWinnersToExcel()" />
@@ -36,7 +36,7 @@
                 <th>
                     Donor
                 </th>
-                <th pSortableColumn="numOfTickets">
+                <th *ngIf="userRole==='ADMIN'" pSortableColumn="numOfTickets">
                     Tickets<p-sortIcon field="numOfTickets" />
                 </th>
 
@@ -59,7 +59,7 @@
                         <input pInputText type="text" [(ngModel)]="donorFilter" placeholder="donor" style="width: 150px;" />
                     </span>
                 </th>
-                <th>
+                <th *ngIf="userRole==='ADMIN'">
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
                         <input pInputText type="number" [(ngModel)]="BuyersCountFilter" placeholder="num of tickets" style="width: 165px;" />
@@ -85,7 +85,7 @@
                         [alt]="product.giftName" width="50" class="shadow-4" />
                 </td>
                 <td>
-                    {{ product.price | currency : 'USD' }}
+                    {{ product.price | currency : 'ILS' }}
                 </td>
                 <td *ngIf="product.donor.showMe">
                     {{product.donor.name}}
@@ -93,18 +93,22 @@
                 <td *ngIf="!product.donor.showMe">
                     Anonymous
                 </td>
-                <td>
+                <td *ngIf="userRole==='ADMIN'">
                     <p-button label="{{numOfTickets(product)}}" severity="help" (click)="showTickets(product)"
                         [outlined]="true" />
                 </td>
 
-                <td *ngIf="!product.winner">
+                <td *ngIf="!product.winner && userRole==='ADMIN'">
                     <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
                         (onClick)="editProduct(product)" />
                     <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true"
                         (onClick)="deleteProduct(product)" />
                     <p-button label="raffle" severity="warning" [rounded]="true" [outlined]="true"
                         (onClick)="raffle(product)" />
+                </td>
+                <td *ngIf="!product.winner && userRole==='USER'">
+                    <p-button label="add to cart" severity="warning" [rounded]="true" [outlined]="true"
+                        (onClick)="addToCart(product)" />
                 </td>
                 <td *ngIf="product.winner">
                     <p-button label="show winner" severity="success" [rounded]="true" [outlined]="true"

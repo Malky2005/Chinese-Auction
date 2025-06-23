@@ -6,19 +6,18 @@ import { DonorListComponent } from './modules/donors/donor-list/donor-list.compo
 import { PurchaseComponent } from './modules/purchase/purchase.component';
 import { PaymentComponent } from './modules/Login/payment.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path:'',redirectTo:'home',pathMatch:'full'},
-  {path:'home',component:HomeComponent},
-  {path:'gifts',component:GitsListComponent},
-  {path:'donors',component:DonorListComponent},
-  {path:'purchase',component:PurchaseComponent},
- 
-  { path: 'pay', loadChildren: () => import('./modules/Login/payment-routing.module').then(m => m.PaymentRouterModule) },
-
-  { path: 'login', redirectTo: 'pay/login' },
-  //{ path: '**', redirectTo: 'pay/signup' },
-  {path:'**',component:ErrorPageComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent},
+  { path: 'gifts', component: GitsListComponent, canActivate: [AuthGuard] },
+  { path: 'donors', component: DonorListComponent, canActivate: [AuthGuard] },
+  { path: 'purchase', component: PurchaseComponent, canActivate: [AuthGuard] },
+  { path: 'login', loadChildren: () => import('./modules/Login/payment-routing.module').then(m => m.PaymentRouterModule)},
+  { path: 'signin', redirectTo: 'login/signin' },
+  { path: 'signup', redirectTo: 'login/signup' },
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({

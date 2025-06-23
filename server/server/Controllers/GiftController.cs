@@ -20,7 +20,6 @@ namespace server.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [Authorize (Roles = "Admin")]
         public async Task<IActionResult> Get()
         {
             try

@@ -28,7 +28,7 @@ namespace server.Controllers
             try
             {
                 var token = await _userService.Login(loginDto.Username, loginDto.Password);
-                return Ok(new { Token = token });
+                return Ok(token);
             }
             catch (UnauthorizedAccessException ex)
             {

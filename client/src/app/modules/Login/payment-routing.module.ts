@@ -4,9 +4,9 @@ import { ExistingUserComponent } from "./existing-user/existing-user.component";
 import { NewUserComponent } from "./new-user/new-user.component";
 
 const routes=[
-    {path:'login',component:ExistingUserComponent},
+    {path:'signin',component:ExistingUserComponent},
     {path:'signup',component:NewUserComponent},
-    { path: '**', redirectTo: 'signup' }
+    { path: '**', redirectTo: 'signin' }
 ]
 @NgModule({
     imports:[RouterModule.forChild(routes)],

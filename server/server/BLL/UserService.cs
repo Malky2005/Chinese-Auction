@@ -6,6 +6,7 @@ using server.DAL.intefaces;
 using server.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using server.Models.DTO;
 
 namespace server.BLL
 {
@@ -19,15 +20,20 @@ namespace server.BLL
             _userDal = userDal;
         }
 
-        public async Task<string> Login(string username, string password)
+        public async Task<TokenResultDto> Login(string username, string password)
         {
             var user = await _userDal.GetUserByUsername(username);
             if (user == null || !VerifyPassword(password, user.Password))
             {
                 throw new UnauthorizedAccessException("Invalid username or password.");
             }
+            var result = new TokenResultDto
+            {
+                Token = GenerateJwtToken(user),
+                role = user.Role == UserRole.Admin ? "ADMIN" : "USER"
+            };
 
-            return GenerateJwtToken(user);
+            return result;
         }
 
         public async Task Register(User user)
