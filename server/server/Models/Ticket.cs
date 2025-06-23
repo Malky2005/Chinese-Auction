@@ -16,6 +16,7 @@
         public Gift Gift { get; set; }
 
         public DateOnly OrderDate { get; set; }
+        public DateOnly? PayDate { get; set; }
         public TicketStatus Status { get; set; } = TicketStatus.Pending;
 
     }

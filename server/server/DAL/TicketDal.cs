@@ -111,6 +111,7 @@ namespace server.DAL
                 throw new InvalidOperationException($"Ticket with ID {id} is not in a state that can be paid.");
             }
             ticket.Status = TicketStatus.Paid;
+            ticket.PayDate = DateOnly.FromDateTime(DateTime.Today);
             await _dbContext.SaveChangesAsync();
         }
 

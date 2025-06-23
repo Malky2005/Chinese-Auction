@@ -22,7 +22,7 @@ builder.Services.AddScoped<IDonorService, DonorService>();
 builder.Services.AddScoped<IUserDal, UserDal>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITicketDal, TicketDal>();
-builder.Services.AddScoped<ITicketService, TicketSevice>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 builder.Services.AddHttpContextAccessor();
 

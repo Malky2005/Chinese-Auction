@@ -12,5 +12,6 @@ export interface Ticket {
     user: User;
     gift: Product;
     orderDate: Date;
+    payDate?: Date;
     status: TicketStatus;
 }

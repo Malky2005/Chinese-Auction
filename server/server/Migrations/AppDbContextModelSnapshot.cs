@@ -118,6 +118,9 @@ namespace server.Migrations
                     b.Property<DateOnly>("OrderDate")
                         .HasColumnType("date");
 
+                    b.Property<DateOnly?>("PayDate")
+                        .HasColumnType("date");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 

@@ -8,8 +8,8 @@
                 <th pSortableColumn="id">
                     Id <p-sortIcon field="id" />
                 </th>
-                <th pSortableColumn="orderDate">
-                    Order Date <p-sortIcon field="orderDate" />
+                <th pSortableColumn="payDate">
+                    Pay Date <p-sortIcon field="payDate" />
                 </th>
                 <th pSortableColumn="fullname">
                     User FullName<p-sortIcon field="fullname" />
@@ -31,7 +31,7 @@
                     {{ticket.id}}
                 </td>
                 <td>
-                    {{ticket.orderDate | date:'short'}}
+                    {{ticket.payDate | date:'short'}}
                 </td>
                 <td>
                     {{ticket.user.fullname}}
