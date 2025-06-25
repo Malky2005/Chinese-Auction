@@ -13,13 +13,15 @@ namespace server.DAL
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserDal _userDal;
         private readonly IMapper _mapper;
+        private readonly ILogger<TicketDal> _logger;
 
-        public TicketDal(AppDbContext dbContext, IHttpContextAccessor httpContextAccessor, IUserDal userDal, IMapper mapper)
+        public TicketDal(AppDbContext dbContext, IHttpContextAccessor httpContextAccessor, IUserDal userDal, IMapper mapper, ILogger<TicketDal> logger)
         {
             this._dbContext = dbContext;
             this._httpContextAccessor = httpContextAccessor;
             this._userDal = userDal;
             this._mapper = mapper;
+            this._logger = logger;
         }
         public async Task<List<TicketDtoResult>> Get()
         {
@@ -38,6 +40,7 @@ namespace server.DAL
         public async Task<List<TicketDtoResult>> GetByUserPaid()
         {
             var user = await _userDal.GetUserFromToken();
+            _logger.LogInformation($"get paid tickets by user: {user.Id}");
             var tickets = await _dbContext.Tickets
                 .Where(t => t.UserId == user.Id && t.Status != TicketStatus.Pending)
                 .Include(t => t.Gift)
@@ -52,6 +55,7 @@ namespace server.DAL
         public async Task<List<TicketDtoResult>> GetByUserPending()
         {
             var user = await _userDal.GetUserFromToken();
+            _logger.LogInformation($"get pending tickets by user: {user.Id}");
             var tickets = await _dbContext.Tickets
                 .Where(t => t.UserId == user.Id && t.Status == TicketStatus.Pending)
                 .Include(t => t.Gift)
@@ -66,7 +70,7 @@ namespace server.DAL
         public async Task<TicketDtoResult> Get(int id)
         {
             var user = await _userDal.GetUserFromToken();
-
+            _logger.LogInformation($"get ticket {id} by user: {user.Id}");
             var ticket = await _dbContext.Tickets.Include(t => t.Gift).FirstOrDefaultAsync(t => t.Id == id);
             if (ticket == null)
             {
@@ -97,6 +101,7 @@ namespace server.DAL
         public async Task pay(int id)
         {
             var user = await _userDal.GetUserFromToken();
+            _logger.LogInformation($"try pay ticket {id} by user: {user.Id}");
             var ticket = await _dbContext.Tickets.FindAsync(id);
             if (ticket == null)
             {
@@ -139,6 +144,7 @@ namespace server.DAL
                 throw new UnauthorizedAccessException("Username not found in token.");
             }
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == usernameFromToken);
+            _logger.LogInformation($"try delete ticket {id} by user: {user?.Id}");
             if (user == null)
             {
                 throw new UnauthorizedAccessException("User not found.");

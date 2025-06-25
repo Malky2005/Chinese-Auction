@@ -13,30 +13,33 @@ namespace server.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper, ILogger<UserController> logger)
         {
             _userService = userService;
             _mapper = mapper;
+            _logger = logger;
         }
-
-        public IMapper Mapper { get; }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             try
             {
+                _logger.LogInformation($"login username: {loginDto.Username}");
                 var token = await _userService.Login(loginDto.Username, loginDto.Password);
                 return Ok(token);
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(ex.Message);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: ");
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
         }
 
@@ -45,6 +48,7 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"register: {registerDto.Fullname}, {registerDto.Username}, {registerDto.Email}");
                 var user = _mapper.Map<User>(registerDto);
 
                 await _userService.Register(user);
@@ -52,11 +56,13 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: ");
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
         }
         [HttpGet("{username}")]
@@ -64,11 +70,13 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"username exist?: {username}");
                 return Ok(await _userService.UsernameExist(username));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: ");
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
 
         }

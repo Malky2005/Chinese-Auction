@@ -16,12 +16,14 @@ namespace server.Controllers
         private readonly ITicketService _ticketService;
         private readonly IMapper _mapper;
         private readonly IUserDal _userDal;
+        private readonly ILogger<TicketController> _logger;
 
-        public TicketController(ITicketService ticketService, IMapper mapper, IUserDal userDal)
+        public TicketController(ITicketService ticketService, IMapper mapper, IUserDal userDal, ILogger<TicketController> logger)
         {
             this._ticketService = ticketService;
             this._mapper = mapper;
             this._userDal = userDal;
+            this._logger = logger;
         }
 
         [HttpGet]
@@ -35,10 +37,12 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, new { message = "An unexpected error occurred." });
             }
         }
@@ -49,20 +53,24 @@ namespace server.Controllers
         {
             try
             {
+                //log in dal
                 var tickets = await _ticketService.GetByUserPaid();
                 return Ok(tickets);
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(new { message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "An unexpected error occurred." });
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, new { message = "An unexpected error" });
             }
         }
 
@@ -72,20 +80,24 @@ namespace server.Controllers
         {
             try
             {
+                //log in dal
                 var tickets = await _ticketService.GetByUserPending();
                 return Ok(tickets);
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(new { message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "An unexpected error occurred." });
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, new { message = "An unexpected error" });
             }
         }
 
@@ -95,20 +107,24 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"get by id: {id}");
                 var ticket = await _ticketService.Get(id);
                 return Ok(ticket);
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(new { message = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "An unexpected error occurred." });
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, new { message = "An unexpected error" });
             }
         }
 
@@ -120,25 +136,30 @@ namespace server.Controllers
             {
                 var ticket = _mapper.Map<Ticket>(ticketDto);
                 var user = await _userDal.GetUserFromToken();
+                _logger.LogInformation($"order ticket by user: {user.Id} ticket info: gift id {ticketDto.GiftId}");
                 ticket.UserId = user.Id;
                 await _ticketService.Add(ticket);
                 return CreatedAtAction(nameof(Get), new { id = ticket.Id }, ticket);
             }
             catch (ArgumentNullException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(new { message = ex.Message });
             }
             catch (InvalidDataException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(new { message = ex.Message });
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "An unexpected error occurred." });
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, new { message = "An unexpected error" });
             }
         }
 
@@ -148,24 +169,29 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"pay ticket {id}");
                 await _ticketService.pay(id);
                 return Ok();
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(new { message = ex.Message });
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(new { message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "An unexpected error occurred." });
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, new { message = "An unexpected error" });
             }
         }
 
@@ -175,23 +201,28 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"delete ticket: {id}");
                 await _ticketService.Delete(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(new { message = ex.Message });
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(new { message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, new { message = "An unexpected error occurred." });
             }
         }
@@ -201,19 +232,23 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"get tickets by gift id: {giftId}");
                 var tickets = await _ticketService.GetByGiftId(giftId);
                 return Ok(tickets);
             }
             catch (UnauthorizedAccessException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Unauthorized(new { message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, new { message = "An unexpected error occurred." });
             }
         }

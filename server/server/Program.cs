@@ -13,6 +13,10 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
+builder.Services.AddLogging(config =>
+    {
+        config.AddConsole();
+    });
 builder.Services.AddScoped<IGiftDal, GiftDal>();
 builder.Services.AddScoped<IGiftService, GiftService>();
 builder.Services.AddScoped<ICategoryDal, CategoryDal>();

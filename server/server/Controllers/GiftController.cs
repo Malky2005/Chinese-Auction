@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using server.Models.DTO;
-using server.Models;
-using server.BLL.Intefaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using server.BLL.Intefaces;
+using server.DAL;
+using server.Models;
+using server.Models.DTO;
 
 namespace server.Controllers
 {
@@ -13,11 +14,13 @@ namespace server.Controllers
     {
         private readonly IGiftService _giftService;
         private readonly IMapper _mapper;
+        private readonly ILogger<GiftsController> _logger;
 
-        public GiftsController(IGiftService giftService, IMapper mapper)
+        public GiftsController(IGiftService giftService, IMapper mapper, ILogger<GiftsController> logger)
         {
             _giftService = giftService;
             _mapper = mapper;
+            _logger = logger;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -29,10 +32,12 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -42,15 +47,18 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"get by id: {id}");
                 var gift = await _giftService.Get(id);
                 return Ok(gift);
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -61,6 +69,7 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"add gift: {giftDto.GiftName}, {giftDto.Price}, category id: {giftDto.CategoryId}");
                 if (giftDto == null || giftDto.CategoryId == 0 || giftDto.DonorId == 0 || giftDto.GiftName == null)
                 {
                     return BadRequest("Gift data cannot be null.");
@@ -82,14 +91,17 @@ namespace server.Controllers
             }
             catch(InvalidDataException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(ex.Message); 
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Conflict(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -100,6 +112,7 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"update gift {id}: {giftDto.GiftName}, {giftDto.Price}, category id: {giftDto.CategoryId}");
                 if (giftDto == null || giftDto.CategoryId == 0 || giftDto.DonorId == 0 || giftDto.GiftName == null )
                 {
                     return BadRequest("Gift data cannot be null.");
@@ -126,14 +139,17 @@ namespace server.Controllers
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return Conflict(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -144,6 +160,7 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"delete gift: {id}");
                 var result = await _giftService.Delete(id);
                 if (!result)
                 {
@@ -153,10 +170,12 @@ namespace server.Controllers
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -166,15 +185,18 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"search: giftName: {giftName}, donorName: {donorName}, buyerCount: {buyerCount}");
                 var gifts = await _giftService.Search(giftName, donorName, buyerCount);
                 return Ok(gifts);
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -185,15 +207,18 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"get donor for gift: {giftId}");
                 var donor = await _giftService.GetDonor(giftId);
                 return Ok(donor);
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -208,10 +233,12 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -226,10 +253,12 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -240,19 +269,23 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"raffle gift: {id}");
                 await _giftService.raffle(id);
                 return Ok();
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error"); 
             }
         }

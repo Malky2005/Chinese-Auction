@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using server.BLL.Intefaces;
-using server.Models.DTO;
+using server.DAL;
 using server.Models;
-using Microsoft.AspNetCore.Authorization;
+using server.Models.DTO;
 
 namespace server.Controllers
 {
@@ -13,10 +14,13 @@ namespace server.Controllers
     {
         private readonly IDonorService _donorService;
         private readonly IMapper _mapper;
-        public DonorController(IDonorService donorService, IMapper mapper)
+        private readonly ILogger<DonorController> _logger;
+
+        public DonorController(IDonorService donorService, IMapper mapper, ILogger<DonorController> logger)
         {
             _donorService = donorService;
             _mapper = mapper;
+            _logger = logger;
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -29,10 +33,12 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -43,15 +49,18 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"get by id: {id}");
                 var donor = await _donorService.Get(id);
                 return Ok(donor);
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -62,6 +71,7 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"post: {donorDto.Name}, {donorDto.Email}");
                 if (donorDto == null )
                 {
                     return BadRequest("Donor data cannot be null.");
@@ -73,10 +83,12 @@ namespace server.Controllers
             }
             catch (ArgumentNullException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -87,6 +99,7 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"update: {id}, {donorDto.Name}, {donorDto.Email}");
                 if (donorDto == null )
                 {
                     return BadRequest("Donor data cannot be null.");
@@ -103,14 +116,17 @@ namespace server.Controllers
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (ArgumentNullException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -121,6 +137,7 @@ namespace server.Controllers
         {
             try
             {
+                _logger.LogInformation($"delete id: {id}");
                 var existingDonor = await _donorService.Get(id);
                 if (existingDonor == null)
                 {
@@ -132,10 +149,12 @@ namespace server.Controllers
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }
@@ -144,6 +163,7 @@ namespace server.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Search(string name = null, string email = null, string giftName = null)
         {
+            //_logger.LogInformation($"search: name: {name}, email:{email}, gift name:{giftName}");
             try
             {
                 var donors = await _donorService.Search(name, email, giftName);
@@ -151,10 +171,12 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500, "server error");
             }
         }

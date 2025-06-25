@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using server.BLL.Intefaces;
+using server.DAL;
 using server.Models;
 using server.Models.DTO;
 
@@ -13,14 +14,15 @@ namespace server.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
+        private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(ICategoryService categoryService, IMapper mapper)
+        public CategoryController(ICategoryService categoryService, IMapper mapper, ILogger<CategoryController> logger)
         {
             _categoryService = categoryService;
             _mapper = mapper;
+            this._logger = logger;
         }
 
-        // GET: api/<CategoryController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> Get()
         {
@@ -31,40 +33,44 @@ namespace server.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
         }
 
-        // GET api/<CategoryController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> Get(int id)
         {
             try
             {
+                _logger.LogInformation($"get by id: id: {id}");
                 var category = await _categoryService.Get(id);
                 return Ok(category);
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
         }
 
-        // POST api/<CategoryController>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Post([FromBody] CategoryDto categoryDto)
         {
             try
             {
+                _logger.LogInformation($"category name: {categoryDto.Name}");
                 var category = _mapper.Map<Category>(categoryDto);
                 var duplicate = await _categoryService.NameExist(category.Name);
                 if (duplicate)
@@ -77,21 +83,23 @@ namespace server.Controllers
             }
             catch (ArgumentNullException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(ex.Message); 
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
         }
 
-        // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDto categoryDto)
         {
             try
             {
+                _logger.LogInformation($"put: category name: {categoryDto.Name}");
                 var category = _mapper.Map<Category>(categoryDto);
                 var existingCategory = await _categoryService.Get(id);
                 if (existingCategory == null)
@@ -110,35 +118,40 @@ namespace server.Controllers
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (ArgumentNullException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return BadRequest(ex.Message); 
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
         }
 
-        // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             try
             {
+                _logger.LogInformation($"delete id: {id}");
                 await _categoryService.Delete(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
                 return NotFound(ex.Message); 
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, "An unexpected error");
             }
         }
     }
