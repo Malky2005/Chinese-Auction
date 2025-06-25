@@ -1,1 +1,48 @@
-<p>ticket-detatils works!</p>
+<div class="card">
+    <p-table [value]="tickets" 
+        [tableStyle]="{ 'min-width': '90%' }" [rowHover]="true" dataKey="id">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">
+                    Id <p-sortIcon field="id" />
+                </th>
+                <th pSortableColumn="orderDate">
+                    Order Date <p-sortIcon field="orderDate" />
+                </th>
+                <th pSortableColumn="payDate">
+                    Pay Date <p-sortIcon field="payDate" />
+                </th>
+                <th pSortableColumn="gift.giftName">
+                    Gift Name <p-sortIcon field="gift.giftName" />
+                </th>
+                <th>
+                    Win
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ticket>
+            <tr>
+                <td>
+                    {{ticket.id}}
+                </td>
+                <td>
+                    {{ ticket.orderDate }}
+                </td>
+                <td>
+                    {{ ticket.payDate }}
+                </td>
+                <td>
+                    {{ ticket.gift?.giftName }}
+                </td>
+                <td>
+                    <i *ngIf="ticket.status === 2" class="pi pi-check" title="Win"></i>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+    <p-confirmDialog [style]="{ width: '450px' }" />
+</div>
+

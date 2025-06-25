@@ -69,7 +69,14 @@ export class NavComponent implements OnInit {
                     }
                 },
                 {
-                    label: 'Buy Gifts',
+                    label: 'My Tickets',
+                    icon: 'pi pi-ticket',
+                    command: () => {
+                        this.router.navigate(['/tickets']);
+                    }
+                },
+                {
+                    label: 'cart',
                     icon: 'pi pi-shopping-cart',
                     command: () => {
                         this.router.navigate(['/purchase']);
@@ -96,6 +103,13 @@ export class NavComponent implements OnInit {
                             route: '/login/signup'
                         }
                     ]
+                },
+                {
+                    label: 'Gifts',
+                    icon: 'pi pi-gift',
+                    command: () => {
+                        this.router.navigate(['/gifts']);
+                    }
                 }
             ];
         }

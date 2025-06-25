@@ -16,14 +16,17 @@ export class AuthGuard implements CanActivate {
     if (userRole === 'ADMIN') {
       return true;
     }
-
+    const requestedRoute = state.url;
+    if (requestedRoute === '/gifts') {
+      return true;
+    }
     if (userRole === 'USER') {
-      const requestedRoute = state.url;
-      if (requestedRoute === '/gifts' || requestedRoute === '/purchase') {
+      
+      if (requestedRoute === '/purchase' || requestedRoute === '/tickets') {
         return true;
       }
     }
-
+    
     this.router.navigate(['login/signin']); 
     return false;
   }

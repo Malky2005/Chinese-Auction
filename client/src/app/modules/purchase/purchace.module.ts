@@ -11,14 +11,18 @@ import { TagModule } from 'primeng/tag';
 
 import { RatingModule } from 'primeng/rating';
 import { TicketDetatilsComponent } from './ticket-detatils/ticket-detatils.component';
-
+import { TicketService } from '../../service/ticketService';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
   declarations: [PurchaseComponent, TicketDetatilsComponent],
-  imports: [DataViewModule, ButtonModule, TagModule, CommonModule,RatingModule,ImportsModule],
-    providers: [ProductService],
-  exports: [PurchaseComponent],
+  imports: [DataViewModule,TableModule, 
+    ButtonModule, TagModule, CommonModule,RatingModule,ImportsModule, ToastModule],
+    providers: [ProductService, TicketService, MessageService],
+  exports: [PurchaseComponent, TicketDetatilsComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PurchacewModule { }

@@ -7,12 +7,14 @@ import { PurchaseComponent } from './modules/purchase/purchase.component';
 import { PaymentComponent } from './modules/Login/payment.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AuthGuard } from './auth.guard';
+import { TicketDetatilsComponent } from './modules/purchase/ticket-detatils/ticket-detatils.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   { path: 'gifts', component: GitsListComponent, canActivate: [AuthGuard] },
   { path: 'donors', component: DonorListComponent, canActivate: [AuthGuard] },
+  { path: 'tickets', component: TicketDetatilsComponent, canActivate: [AuthGuard] },
   { path: 'purchase', component: PurchaseComponent, canActivate: [AuthGuard] },
   { path: 'login', loadChildren: () => import('./modules/Login/payment-routing.module').then(m => m.PaymentRouterModule)},
   { path: 'signin', redirectTo: 'login/signin' },

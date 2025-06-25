@@ -113,7 +113,7 @@ export class GitsListComponent implements OnInit {
     }
     filterGifts() {
         if (!this.products) {
-            return []; 
+            return [];
         }
         return this.products.filter(product => {
             const matchesName = product.giftName?.toLowerCase().includes(this.giftNameFilter.toLowerCase());
@@ -194,14 +194,13 @@ export class GitsListComponent implements OnInit {
     }
 
     showTickets(product: Product) {
-        this.product = { ...product };
+        this.product = product;
         this.showGiftTickets = true;
     }
     numOfTickets(product: Product) {
         return "show (" + (product.numOfTickets) + ") tickets";
     }
     raffle(product: Product) {
-
         this.confirmationService.confirm({
             message: 'Are you sure you want to raffle ' + product.giftName + '?',
             header: 'raffle',
@@ -209,6 +208,12 @@ export class GitsListComponent implements OnInit {
             accept: () => {
                 if (!product.id) {
                     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product ID is missing', life: 3000 });
+                    this.confirmationService.close();
+                    return;
+                }
+                if (!product.tickets || product.tickets.length === 0) {
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No tickets available for raffle', life: 3000 });
+                    this.confirmationService.close();
                     return;
                 }
                 this.productService.raffle(product.id).subscribe(data => {
@@ -223,6 +228,11 @@ export class GitsListComponent implements OnInit {
                     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to complete raffle', life: 3000 });
                     console.error(err);
                 });
+                this.confirmationService.close();
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'info', summary: 'Cancelled', detail: 'Raffle was cancelled', life: 3000 });
+                this.confirmationService.close();
             }
         });
 
@@ -230,7 +240,7 @@ export class GitsListComponent implements OnInit {
     showWinner(product: Product) {
         this.product = { ...product };
         console.log(product);
-        
+
         this.showWinnerDetails = true;
     }
     exportWinnersToExcel() {
@@ -266,7 +276,7 @@ export class GitsListComponent implements OnInit {
                 Name: product.giftName,
                 Price: product.price,
                 NumOfTickets: product.numOfTickets,
-                total:  (product.price || 0) * product.numOfTickets
+                total: (product.price || 0) * product.numOfTickets
             };
         });
 
@@ -288,5 +298,5 @@ export class GitsListComponent implements OnInit {
             console.error(err);
         })
     }
-    
+
 }

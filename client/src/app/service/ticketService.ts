@@ -30,8 +30,8 @@ export class TicketService {
     getAllPaidTicketsByUser(): Observable<Ticket[]> {
         return this._http.get<Ticket[]>(this.baseUrl + "paid", { headers: this.getHeaders() });
     }
-    getAllPendingTicketsByUser(name: string): Observable<Ticket[]>{
-        return this._http.get<Ticket[]>(this.baseUrl = "pending", { headers: this.getHeaders() });
+    getAllPendingTicketsByUser(): Observable<Ticket[]>{
+        return this._http.get<Ticket[]>(this.baseUrl + "pending", { headers: this.getHeaders() });
     }
     getById(id: number): Observable<Ticket> {
         return this._http.get<Ticket>(this.baseUrl+id, { headers: this.getHeaders() });
@@ -40,7 +40,7 @@ export class TicketService {
         return this._http.delete(this.baseUrl+id, { headers: this.getHeaders() });
     }
     pay(id: number){
-        return this._http.put(this.baseUrl +"pay/" + id, { headers: this.getHeaders() });
+        return this._http.put(this.baseUrl +"pay/" + id, {}, { headers: this.getHeaders() });
     }
     getTicketsByGiftId(giftId: number): Observable<Ticket[]> {
         return this._http.get<Ticket[]>(this.baseUrl + "byGift/" + giftId, { headers: this.getHeaders() });

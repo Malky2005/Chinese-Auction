@@ -5,29 +5,33 @@ import { ProductService } from '../../service/productservice';
 import { DataView } from 'primeng/dataview';
 import { Tag } from 'primeng/tag';
 import { signal } from '@angular/core';
+import { Ticket } from '../../domain/ticket';
+import { TicketService } from '../../service/ticketService';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-purchase',
     standalone: false,
     templateUrl: './purchase.component.html',
     styleUrl: './purchase.component.css',
-    providers: [ProductService]
+    providers: [ProductService, MessageService]
 })
 export class PurchaseComponent {
-    products!: Product[];
+    tickets: Ticket[] = [];
+    //products!: Product[];
     layout: any;
     dv: any = ''
-    filteredData: Product[] = []
+    filteredData: Ticket[] = []
     showDetails: boolean = false;
-    constructor(private productService: ProductService) { }
+    constructor(private ticketService: TicketService, private messageService: MessageService) { }
 
     ngOnInit() {
-        this.productService.getProductsDataFromServer().subscribe((data) => {
-            this.products = Array.isArray(data) ? data.slice(0, 5) : []
-            this.filteredData = [...this.products];
-        },(error => {
-            console.error('Error loading products:', error);
-            this.products = []
+        this.ticketService.getAllPendingTicketsByUser().subscribe((data) => {
+            this.tickets = data;
+            this.filteredData = [...this.tickets];
+        }, (error => {
+            console.error('Error loading tickets:', error);
+            this.tickets = []
             this.filteredData = []
         }));
 
@@ -35,20 +39,38 @@ export class PurchaseComponent {
     filterGlobalSearch(event: Event) {
         const input = event.target as HTMLInputElement;
         const value = input.value.toLowerCase();
-        if (!this.products || this.products.length === 0) {
+        if (!this.tickets || this.tickets.length === 0) {
             return;
         }
-        this.filteredData = this.products.filter(item =>
-            Object.values(item).some(val =>
-                String(val).toLowerCase().includes(value)
-            )
+        this.filteredData = this.tickets.filter(item =>
+            item.gift?.giftName?.toLowerCase().includes(value)
         );
-
-
     }
-    buyTicket() {
-        console.log(`buy`)
-        this.showDetails = true
-    }
+    buyTicket(ticket: Ticket) {
+        this.ticketService.pay(ticket.id).subscribe(data => {
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'buyed gift succesfully', life: 3000 });
+            this.ticketService.getAllPendingTicketsByUser().subscribe((data) => {
+                this.tickets = data;
+                this.filteredData = [...this.tickets];
+            }, (error => {
+                console.error('Error loading tickets:', error);
+                this.tickets = []
+                this.filteredData = []
+            }));
 
+        }, err => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error buyung gift', life: 3000 });
+            console.error('Error buying ticket:', err);
+        })
+    }
+    deleteTicket(ticket: Ticket) {
+        this.ticketService.delete(ticket.id).subscribe(data => {
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Deleted ticket', life: 3000 });
+            this.tickets = this.tickets.filter(t => t.id !== ticket.id);
+            this.filteredData = [...this.tickets];
+        }, err => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting ticket', life: 3000 });
+            console.error('Error deleting ticket:', err);
+        })
+    }
 }

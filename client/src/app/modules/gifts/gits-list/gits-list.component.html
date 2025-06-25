@@ -3,8 +3,8 @@
     <p-toolbar styleClass="mb-4 gap-2" *ngIf="userRole==='ADMIN'">
         <ng-template pTemplate="left">
             <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
-            <p-button label="Export Winners Report" icon="pi pi-file-excel" (onClick)="exportWinnersToExcel()" />
-            <p-button label="Export Incomes Report" icon="pi pi-file-excel" (onClick)="exportIncomesToExcel()" />
+            <p-button label="Download Winners Report" icon="pi pi-download" class="mr-2" (onClick)="exportWinnersToExcel()" />
+            <p-button label="Download Incomes Report" icon="pi pi-download" class="mr-2" (onClick)="exportIncomesToExcel()" />
         </ng-template>
     </p-toolbar>
 
@@ -113,6 +113,10 @@
                 <td *ngIf="product.winner">
                     <p-button label="show winner" severity="success" [rounded]="true" [outlined]="true"
                         (onClick)="showWinner(product)" />
+                </td>
+                <td *ngIf="!product.winner && userRole === null">
+                    <p-button label="to buy login" severity="warning" [rounded]="true" [outlined]="true"
+                    onclick="window.location.href='/login'" />
                 </td>
 
             </tr>

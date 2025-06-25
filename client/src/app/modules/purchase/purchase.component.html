@@ -1,66 +1,87 @@
+<p-toast />
 <p-dataView #dv [value]="filteredData">
     <ng-template pTemplate="header">
         <div class="flex justify-content-end">
             <p-dataViewLayoutOptions [layout]="layout" />
-            <input pInputText type="text" (input)="filterGlobalSearch($event)" placeholder="Search..." class="w-8rem sm:w-auto"/>
-           
+            <input pInputText type="text" (input)="filterGlobalSearch($event)" placeholder="Search..."
+                class="w-8rem sm:w-auto" />
+
         </div>
-       
+
     </ng-template>
-    <ng-template let-gift pTemplate="grid" let-gifts>
+    <ng-template pTemplate="grid" let-tickets>
         <div class="grid grid-nogutter">
-            <div class="col-12 sm:col-6 md:col-3 xl:col-3 p-2" *ngFor="let gift of gifts">
+            <div class="col-12 sm:col-6 md:col-3 xl:col-3 p-2" *ngFor="let ticket of tickets">
                 <div class="p-4 border-1 surface-border surface-card border-round flex flex-column">
                     <div class="surface-50 flex justify-content-center border-round p-3">
                         <div class="relative mx-auto">
                             <img class="block xl:block mx-auto border-round w-auto"
-                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + gift.image"
-                            [alt]="gift.name"
-                             />
+                                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + ticket.gift?.imageUrl"
+                                [alt]="ticket.gift?.giftName" />
                         </div>
                     </div>
                     <div class="pt-4">
                         <div class="flex flex-row justify-content-between align-items-start gap-2">
                             <div>
-            
-                                <div class="text-lg font-medium text-900 mt-1">{{ gift.name }}</div>
+
+                                <div class="text-lg font-medium text-900 mt-1">{{ ticket.gift?.giftName }}</div>
                             </div>
-                            
+
                         </div>
                         <div class="flex flex-column gap-4 mt-4">
-                            <span class="text-2xl font-semibold">{{ '₪' + gift.price }}</span>
+                            <span class="text-2xl font-semibold">{{ '₪' + ticket.gift?.price }}</span>
                             <div class="flex gap-2">
-                                <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" label="Buy Ticket"  (click)="buyTicket()" />
+                                <p-button icon="pi pi-shopping-cart"
+                                    class="flex-auto md:flex-initial white-space-nowrap" label="Buy Ticket"
+                                    [disabled]="ticket.gift.winner" (click)="buyTicket(ticket)" />
+                                <p-button icon="pi pi-trash" severity="danger"
+                                    class="flex-auto md:flex-initial white-space-nowrap" label="Delete"
+                                    (click)="deleteTicket(ticket)" />
                             </div>
+                            <div *ngIf="ticket.gift.winner" class="text-sm text-secondary">The gift has already been
+                                raffled</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </ng-template>
-    <ng-template pTemplate="list" let-products>
+    <ng-template pTemplate="list" let-tickets>
         <div class="flex align-items-center gap-2">
-           
+
         </div>
         <div class="grid grid-nogutter">
-            <div class="col-12" *ngFor="let item of products; let first = first" class="col-12">
-                <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+            <div class="col-12" *ngFor="let ticket of tickets; let first = first" class="col-12">
+                <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+                    [ngClass]="{ 'border-top-1 surface-border': !first }">
                     <div class="md:w-10rem relative">
-                        <img class="block xl:block mx-auto border-round w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                        
+                        <img class="block xl:block mx-auto border-round w-full"
+                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + ticket.gift?.imageUrl"
+                            [alt]="ticket.gift?.giftName" />
+
                     </div>
-                    <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                    <div
+                        class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
                         <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
                             <div>
-                                <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                                <div class="text-lg font-medium text-900 mt-2">{{ item.name }}</div>
+                                <span class="font-medium text-secondary text-sm">{{ ticket.gift?.categoryName }}</span>
+                                <div class="text-lg font-medium text-900 mt-2">{{ ticket.gift?.giftName }}</div>
                             </div>
-                            
+
                         </div>
                         <div class="flex flex-column md:align-items-end gap-5">
-                            <span class="text-xl font-semibold text-900">{{ '₪' + item.price }}</span>
-                            <div class="flex flex-row-reverse md:flex-row gap-2">
-                                <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" (click)="buyTicket()"/>
+                            <span class="text-xl font-semibold text-900">{{ '₪' + ticket.gift?.price }}</span>
+                            <div class="flex flex-column">
+                                <div class="flex flex-row-reverse md:flex-row gap-2">
+                                    <p-button icon="pi pi-shopping-cart"
+                                        class="flex-auto md:flex-initial white-space-nowrap" label="Buy Now"
+                                        [disabled]="ticket.gift.winner" (click)="buyTicket(ticket)" />
+                                    <p-button icon="pi pi-trash" severity="danger"
+                                        class="flex-auto md:flex-initial white-space-nowrap" label="Delete"
+                                        (click)="deleteTicket(ticket)" />
+                                </div>
+                                <div *ngIf="ticket.gift.winner" class="text-sm text-secondary mt-2">The gift has already
+                                    been raffled</div>
                             </div>
                         </div>
                     </div>
@@ -69,4 +90,3 @@
         </div>
     </ng-template>
 </p-dataView>
-

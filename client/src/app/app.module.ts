@@ -11,13 +11,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { HomeComponentComponent } from './home-component/home-component.component';
 import { PaymentModule } from './modules/Login/payment.module';
 import { PurchacewModule } from './modules/purchase/purchace.module';
 import { NavComponent } from './nav/nav.component';
 import { NavModule } from './nav/nav.module';
 import { ImportsModule } from './imports';
-import { BuyGiftsComponent } from './buy-gifts/buy-gifts.component';
 import { TagModule } from 'primeng/tag';
 import { DataViewModule } from 'primeng/dataview';
 import { DonorDetalesComponent } from './modules/donors/donor-detales/donor-detales.component';
@@ -30,9 +28,7 @@ import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponentComponent,
-    BuyGiftsComponent
+    AppComponent
     
   ],
   imports: [

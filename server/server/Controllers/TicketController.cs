@@ -149,7 +149,7 @@ namespace server.Controllers
             try
             {
                 await _ticketService.pay(id);
-                return NoContent();
+                return Ok();
             }
             catch (KeyNotFoundException ex)
             {
